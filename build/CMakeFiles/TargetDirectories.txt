@@ -1,4 +1,0 @@
-D:/Coding 2.0/SDL3_Space/build/CMakeFiles/SpaceLib.dir
-D:/Coding 2.0/SDL3_Space/build/CMakeFiles/SpaceGame.dir
-D:/Coding 2.0/SDL3_Space/build/CMakeFiles/edit_cache.dir
-D:/Coding 2.0/SDL3_Space/build/CMakeFiles/rebuild_cache.dir
