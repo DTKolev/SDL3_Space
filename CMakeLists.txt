@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 4.2.0)
 project(SpaceGame)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 #Set internal variables
 set (SPACELIB_GAMECLASS_SOURCE_DIRECTORY ${CMAKE_SOURCE_DIR}/private/SpaceLib/lib/GameClass)
