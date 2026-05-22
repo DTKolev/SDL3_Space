@@ -69,3 +69,42 @@ void Renderer::RenderPlanet(Planet planet) {
   //Render the planet texture
   SDL_RenderTexture(renderer, planet.planet_texture, NULL, &destination_rect_float);
 }
+
+void Renderer::PreRenderDefaultStarTexture() {
+  default_star_texture = nullptr;
+  default_star_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 10, 10);
+  if (default_star_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
+
+  //Set texture properties
+  SDL_SetTextureBlendMode(default_star_texture, SDL_BLENDMODE_BLEND);
+  SDL_SetTextureScaleMode(default_star_texture, SDL_SCALEMODE_LINEAR);
+
+  //Store the old render target (the game window in this case)
+  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
+  //Set the new render target (the default star texture)
+  SDL_SetRenderTarget(renderer, default_star_texture);
+
+  //Fill texture with transparent color and set render draw color
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderClear(renderer);
+  int center_brightness = 255;
+  SDL_SetRenderDrawColor(renderer, center_brightness, center_brightness, center_brightness, 255);
+
+  //Draw a four-sided star shape on the texture
+  for (int i = 0; i < 5; i++) {
+    SDL_FPoint points[4] = {
+      {5.0f + i, 5.0f},
+      {5.0f - i, 5.0f},
+      {5.0f, 5.0f + i},
+      {5.0f, 5.0f - i}  
+    };
+    for (int j = 0; j < 4; j++) {
+      SDL_RenderPoint(renderer, points[j].x, points[j].y);
+    }
+    center_brightness -= 50;
+    SDL_SetRenderDrawColor(renderer, center_brightness, center_brightness, center_brightness, 255);
+  }
+
+  //Restore the old render target
+  SDL_SetRenderTarget(renderer, old_render_target);
+}

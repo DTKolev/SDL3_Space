@@ -107,6 +107,7 @@ class Renderer {
     float grid_scale;
     SDL_Window* window;
     SDL_Renderer* renderer;
+    SDL_Texture* default_star_texture;
 
     void CalculateOriginOffset();
 
@@ -115,6 +116,7 @@ class Renderer {
     void CalculateGridCoordinates(GridPoint* point);
 
     //Planet rendering helper functions
+    void PreRenderDefaultStarTexture();
     void PreRenderPlanetTexture(Planet* planet);
     void RenderPlanet(Planet planet);
 
