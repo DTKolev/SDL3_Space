@@ -1,0 +1,86 @@
+[
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_Constructor.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_Constructor.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_Constructor.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_Constructor.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_CoordinateGrid.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_CoordinateGrid.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_CoordinateGrid.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_CoordinateGrid.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_Math.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_Math.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_Math.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_Math.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_PlanetRendering.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_PlanetRendering.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_PlanetRendering.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_PlanetRendering.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_ScreenRendering.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\RendererClass\\SpaceLib_Renderer_ScreenRendering.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_ScreenRendering.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/RendererClass/SpaceLib_Renderer_ScreenRendering.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_Background.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_Background.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_Background.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_Background.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_Constructor.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_Constructor.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_Constructor.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_Constructor.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_DeltaTime.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_DeltaTime.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_DeltaTime.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_DeltaTime.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_GameUtils.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_GameUtils.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_GameUtils.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_GameUtils.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_PublicInterface.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_PublicInterface.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_PublicInterface.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_PublicInterface.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_StateMachine.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_StateMachine.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_StateMachine.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_StateMachine.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_InputHandling.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_InputHandling.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_InputHandling.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_InputHandling.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceLib.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceLib.dir\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_Math.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\private\\SpaceLib\\lib\\GameClass\\SpaceLib_SpaceGame_Math.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_Math.cpp",
+  "output": "CMakeFiles/SpaceLib.dir/private/SpaceLib/lib/GameClass/SpaceLib_SpaceGame_Math.cpp.obj"
+},
+{
+  "directory": "D:/Coding 2.0/SDL3_Space/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe  @CMakeFiles/SpaceGame.dir/includes_CXX.rsp -g -o CMakeFiles\\SpaceGame.dir\\source\\main.cpp.obj -c \"D:\\Coding 2.0\\SDL3_Space\\source\\main.cpp\"",
+  "file": "D:/Coding 2.0/SDL3_Space/source/main.cpp",
+  "output": "CMakeFiles/SpaceGame.dir/source/main.cpp.obj"
+}
+]

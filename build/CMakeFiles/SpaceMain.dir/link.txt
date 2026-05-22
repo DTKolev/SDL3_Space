@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\SpaceMain.dir/objects.a
+C:\msys64\ucrt64\bin\ar.exe qc CMakeFiles\SpaceMain.dir/objects.a @CMakeFiles\SpaceMain.dir\objects1.rsp
+C:\msys64\ucrt64\bin\g++.exe -g -mwindows -Wl,--whole-archive CMakeFiles\SpaceMain.dir/objects.a -Wl,--no-whole-archive -o SpaceMain.exe -Wl,--out-implib,libSpaceMain.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SpaceMain.dir\linkLibs.rsp
