@@ -5,10 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
-#Set internal variables
-set (SPACELIB_GAMECLASS_SOURCE_DIRECTORY ${CMAKE_SOURCE_DIR}/private/SpaceLib/lib/GameClass)
-set (SPACELIB_RENDERERCLASS_SOURCE_DIRECTORY ${CMAKE_SOURCE_DIR}/private/SpaceLib/lib/RendererClass)
-
 #Fetch SDL3 from GitHub
 include(FetchContent)
 FetchContent_Declare(
@@ -31,7 +27,7 @@ target_link_libraries(
   PRIVATE SpaceLib
 )
 
-#Tell the compiler to use grphic interface input instead of launching a console
+#Copy SDL3.dll to the bin directory and tell the compiler to use graphic interface input instead of launching a console
 if (WIN32)
   add_custom_command(TARGET SpaceGame POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different 
