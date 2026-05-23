@@ -140,6 +140,8 @@ void Renderer::PreRenderTitleTexture() {
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
   PrepareTextureForPreRendering(&title_texture, 87, 57);
 
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
   //Build the letter "S"
   SDL_FRect s_rects[5] = {
     {0.0f, 0.0f, 15.0f, 3.0f},
@@ -155,8 +157,8 @@ void Renderer::PreRenderTitleTexture() {
     {30.0f, 0.0f, 3.0f, 15.0f},
     {18.0f, 12.0f, 15.0f, 3.0f}
   };
-  //Build the letter "A"
-  SDL_FRect a_rects[4] = {
+  //Build the letter "A1"
+  SDL_FRect a1_rects[4] = {
     {36.0f, 0.0f, 3.0f, 27.0f},
     {36.0f, 0.0f, 15.0f, 3.0f},
     {48.0f, 0.0f, 3.0f, 27.0f},
@@ -168,5 +170,52 @@ void Renderer::PreRenderTitleTexture() {
     {54.0f, 0.0f, 15.0f, 3.0f},
     {54.0f, 24.0f, 15.0f, 3.0f}
   };
+  //Build the letter "E1"
+  SDL_FRect e1_rects[4] = {
+    {72.0f, 0.0f, 3.0f, 27.0f},
+    {72.0f, 0.0f, 15.0f, 3.0f},
+    {72.0f, 12.0f, 12.0f, 3.0f},
+    {72.0f, 24.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "G"
+  SDL_FRect g_rects[5] = {
+    {9.0f, 30.0f, 3.0f, 27.0f},
+    {9.0f, 30.0f, 15.0f, 3.0f},
+    {9.0f, 54.0f, 15.0f, 3.0f},
+    {21.0f, 42.0f, 3.0f, 15.0f},
+    {15.0f, 42.0f, 9.0f, 3.0f}
+  };
+  //Build the Letter "A2"
+  SDL_FRect a2_rects[4] = {
+    {27.0f, 30.0f, 3.0f, 27.0f},
+    {27.0f, 30.0f, 15.0f, 3.0f},
+    {39.0f, 30.0f, 3.0f, 27.0f},
+    {27.0f, 42.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "M"
+  SDL_FRect m_rects[4] = {
+    {45.0f, 30.0f, 3.0f, 27.0f},
+    {45.0f, 30.0f, 15.0f, 3.0f},
+    {57.0f, 30.0f, 3.0f, 27.0f},
+    {51.0f, 30.0f, 3.0f, 18.0f}
+  };
+  //Build the letter "E2"
+  SDL_FRect e2_rects[4] = {
+    {63.0f, 30.0f, 3.0f, 27.0f},
+    {63.0f, 30.0f, 15.0f, 3.0f},
+    {63.0f, 42.0f, 12.0f, 3.0f},
+    {63.0f, 54.0f, 15.0f, 3.0f}
+  };
 
+  SDL_RenderFillRects(renderer, s_rects, 5);
+  SDL_RenderFillRects(renderer, p_rects, 4);
+  SDL_RenderFillRects(renderer, a1_rects, 4);
+  SDL_RenderFillRects(renderer, c_rects, 3);
+  SDL_RenderFillRects(renderer, e1_rects, 4);
+  SDL_RenderFillRects(renderer, g_rects, 5);
+  SDL_RenderFillRects(renderer, a2_rects, 4);
+  SDL_RenderFillRects(renderer, m_rects, 4);
+  SDL_RenderFillRects(renderer, e2_rects, 4);
+
+  SDL_SetRenderTarget(renderer, old_render_target);
 }

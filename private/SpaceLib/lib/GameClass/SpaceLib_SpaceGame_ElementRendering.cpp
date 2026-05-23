@@ -105,3 +105,13 @@ void SpaceGame::RenderHomeButton(float home_button_x, float home_button_y) {
     SDL_RenderTexture(game_renderer.renderer, game_renderer.home_button_texture, NULL, &home_button_rect);
   }
 }
+
+void SpaceGame::RenderTitle() {
+  SDL_FRect title_rect = {
+    game_renderer.window_width / 2.0f - TITLE_WIDTH / 2.0f,
+    game_renderer.window_height / 4.0f - TITLE_HEIGHT / 2.0f,
+    TITLE_WIDTH,
+    TITLE_HEIGHT
+  };
+  SDL_RenderTexture(game_renderer.renderer, game_renderer.title_texture, NULL, &title_rect);
+}

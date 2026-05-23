@@ -46,6 +46,7 @@ void SpaceGame::GameInit() {
   game_renderer.PreRenderDefaultStarTexture();
   game_renderer.PreRenderPlayButtonTexture();
   game_renderer.PreRenderHomeButtonTexture();
+  game_renderer.PreRenderTitleTexture();
 
   //Set game loop variables
   game_state.game_running = true;
@@ -89,6 +90,8 @@ void SpaceGame::GameTerminate() {
   SDL_DestroyTexture(game_renderer.default_star_texture);
   SDL_DestroyTexture(game_renderer.play_button_texture);
   SDL_DestroyTexture(game_renderer.home_button_texture);
+  SDL_DestroyTexture(game_renderer.title_texture);
+  
   SDL_DestroyRenderer(game_renderer.renderer);
   SDL_DestroyWindow(game_renderer.window);
   SDL_Quit();

@@ -21,6 +21,8 @@
 #define MIN_BACKGROUND_STAR_BRIGHTNESS 0.2f
 
 #define SCREEN_BUTTON_SIZE 200.0f
+#define TITLE_WIDTH 580.0f
+#define TITLE_HEIGHT TITLE_WIDTH * 57.0f / 87.0f
 
 //---------------------- TYPE DEFINITIONS
 
@@ -176,6 +178,7 @@ class SpaceGame {
     void RenderBackground();
     void RenderPlayButton(float play_button_x, float play_button_y);
     void RenderHomeButton(float home_button_x, float home_button_y);
+    void RenderTitle();
     //Delta time calculation
     void CalculateDeltaTime();
 
