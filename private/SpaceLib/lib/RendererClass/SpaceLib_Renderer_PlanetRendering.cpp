@@ -109,19 +109,19 @@ void Renderer::PreRenderDefaultStarTexture() {
   SDL_SetRenderTarget(renderer, old_render_target);
 }
 
-void Renderer::PreRenderTriangleTexture() {
-  triangle_texture = nullptr;
-  triangle_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 100, 100);
-  if (triangle_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
+void Renderer::PreRenderPlayButtonTexture() {
+  play_button_texture = nullptr;
+  play_button_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 100, 100);
+  if (play_button_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
 
   //Set texture properties
-  SDL_SetTextureBlendMode(triangle_texture, SDL_BLENDMODE_BLEND);
-  SDL_SetTextureScaleMode(triangle_texture, SDL_SCALEMODE_LINEAR);
+  SDL_SetTextureBlendMode(play_button_texture, SDL_BLENDMODE_BLEND);
+  SDL_SetTextureScaleMode(play_button_texture, SDL_SCALEMODE_LINEAR);
 
   //Store the old render target (the game window in this case)
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  //Set the new render target (the triangle texture)
-  SDL_SetRenderTarget(renderer, triangle_texture);
+  //Set the new render target (the play button texture)
+  SDL_SetRenderTarget(renderer, play_button_texture);
 
   //Fill texture with transparent color and set render draw color
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
@@ -134,6 +134,39 @@ void Renderer::PreRenderTriangleTexture() {
   };
 
   SDL_RenderGeometry(renderer, NULL, vertecies, 3, NULL, 0);
+
+  //Restore the old render target
+  SDL_SetRenderTarget(renderer, old_render_target);
+}
+
+void Renderer::PreRenderHomeButtonTexture() {
+  home_button_texture = nullptr;
+  home_button_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 100, 100);
+  if (home_button_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
+
+  //Set texture properties
+  SDL_SetTextureBlendMode(home_button_texture, SDL_BLENDMODE_BLEND);
+  SDL_SetTextureScaleMode(home_button_texture, SDL_SCALEMODE_LINEAR);
+
+  //Store the old render target (the game window in this case)
+  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
+  //Set the new render target (the home button texture)
+  SDL_SetRenderTarget(renderer, home_button_texture);
+
+  //Fill texture with transparent color and set render draw color
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderClear(renderer);
+
+  //Draw the fome icon from a filled FRect for base and triangle roof
+  SDL_FRect home_base = {10.0f, 40.0f, 80.0f, 60.0f};
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+  SDL_RenderFillRect(renderer, &home_base);
+  SDL_Vertex roof_vertices[3] = {
+    {{0.0f, 40.0f}, {255, 255, 255, 255}, {0.0f, 0.4f}},
+    {{100.0f, 40.0f}, {255, 255, 255, 255}, {1.0f, 0.4f}},
+    {{50.0f, 10.0f}, {255, 255, 255, 255}, {0.5f, 0.0f}}
+  };
+  SDL_RenderGeometry(renderer, NULL, roof_vertices, 3, NULL, 0);
 
   //Restore the old render target
   SDL_SetRenderTarget(renderer, old_render_target);

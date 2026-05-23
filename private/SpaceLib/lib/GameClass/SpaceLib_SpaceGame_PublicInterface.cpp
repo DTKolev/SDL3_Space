@@ -44,7 +44,8 @@ void SpaceGame::GameInit() {
 
   CreateBackground();
   game_renderer.PreRenderDefaultStarTexture();
-  game_renderer.PreRenderTriangleTexture();
+  game_renderer.PreRenderPlayButtonTexture();
+  game_renderer.PreRenderHomeButtonTexture();
 
   //Set game loop variables
   game_state.game_running = true;
@@ -57,6 +58,9 @@ void SpaceGame::GameInit() {
 void SpaceGame::GameRun() {
   while (game_state.game_running) {
     HandleInput();
+    SDL_SetRenderDrawColor(game_renderer.renderer, 0, 0, 0, 255);
+    SDL_RenderClear(game_renderer.renderer);
+    RenderBackground();
     switch (game_state.current_state) {
       case STATE_MENU:
         HandleMenu();
@@ -68,11 +72,13 @@ void SpaceGame::GameRun() {
         break;
       case STATE_PAUSE:
         HandlePause();
+        RenderPause();
         break;
       case STATE_EXIT:
         game_state.game_running = false;
         break;
     }
+    SDL_RenderPresent(game_renderer.renderer);
     CalculateDeltaTime();
   }
 
@@ -81,7 +87,8 @@ void SpaceGame::GameRun() {
 void SpaceGame::GameTerminate() {
   ClearPlanetTextures();
   SDL_DestroyTexture(game_renderer.default_star_texture);
-  SDL_DestroyTexture(game_renderer.triangle_texture);
+  SDL_DestroyTexture(game_renderer.play_button_texture);
+  SDL_DestroyTexture(game_renderer.home_button_texture);
   SDL_DestroyRenderer(game_renderer.renderer);
   SDL_DestroyWindow(game_renderer.window);
   SDL_Quit();

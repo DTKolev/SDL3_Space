@@ -48,28 +48,60 @@ void SpaceGame::RenderBackground() {
   }
 }
 
-void SpaceGame::RenderPlayButton() {
-  float play_button_x = game_renderer.window_width / 2.0f - PLAY_BUTTON_SIZE / 2.0f;
-  float play_button_y = (game_renderer.window_height / 4.0f) * 3.0f - PLAY_BUTTON_SIZE / 2.0f;
+void SpaceGame::RenderPlayButton(float play_button_x, float play_button_y) {
+  play_button_x -= SCREEN_BUTTON_SIZE / 2.0f;
+  play_button_y -= SCREEN_BUTTON_SIZE / 2.0f;
   SDL_FRect play_button_rect = {
     play_button_x,
     play_button_y,
-    PLAY_BUTTON_SIZE,
-    PLAY_BUTTON_SIZE
+    SCREEN_BUTTON_SIZE,
+    SCREEN_BUTTON_SIZE
   };
 
-  float slope_ratio = (input.mouse.pos_x - play_button_x) / 2.0f;
-  bool mouse_x_hovered = input.mouse.pos_x >= play_button_x && input.mouse.pos_x <= (play_button_x + PLAY_BUTTON_SIZE);
-  bool mouse_y_hovered = input.mouse.pos_y >= play_button_y + slope_ratio && input.mouse.pos_y <= (play_button_y + PLAY_BUTTON_SIZE) - slope_ratio;
+  float slope_const = (input.mouse.pos_x - play_button_x) / 2.0f;
+  bool mouse_x_hovered = input.mouse.pos_x >= play_button_x && input.mouse.pos_x <= (play_button_x + SCREEN_BUTTON_SIZE);
+  bool mouse_y_hovered = input.mouse.pos_y >= play_button_y + slope_const && input.mouse.pos_y <= (play_button_y + SCREEN_BUTTON_SIZE) - slope_const;
   if ((mouse_x_hovered && mouse_y_hovered) || input.input_keys[BUTTON_RETURN].is_down) {
-    SDL_SetTextureColorMod(game_renderer.triangle_texture, 56, 178, 94);
-    SDL_RenderTexture(game_renderer.renderer, game_renderer.triangle_texture, NULL, &play_button_rect);
+    SDL_SetTextureColorMod(game_renderer.play_button_texture, 56, 178, 94);
+    SDL_RenderTexture(game_renderer.renderer, game_renderer.play_button_texture, NULL, &play_button_rect);
     if (ButtonPressed(MOUSE_BUTTON_LEFT)) {
       game_state.current_state = STATE_PLAYING;
     }
   }
   else {
-    SDL_SetTextureColorMod(game_renderer.triangle_texture, 255, 255, 255);
-    SDL_RenderTexture(game_renderer.renderer, game_renderer.triangle_texture, NULL, &play_button_rect);
+    SDL_SetTextureColorMod(game_renderer.play_button_texture, 255, 255, 255);
+    SDL_RenderTexture(game_renderer.renderer, game_renderer.play_button_texture, NULL, &play_button_rect);
+  }
+}
+
+void SpaceGame::RenderHomeButton(float home_button_x, float home_button_y) {
+  home_button_x -= SCREEN_BUTTON_SIZE / 2.0f;
+  home_button_y -= SCREEN_BUTTON_SIZE / 2.0f;
+  SDL_FRect home_button_rect = {
+    home_button_x,
+    home_button_y,
+    SCREEN_BUTTON_SIZE,
+    SCREEN_BUTTON_SIZE
+  };
+
+  float roof_slope_const = (input.mouse.pos_y - home_button_y) * 4.0f / 5.0f;
+  bool roof_hovered_y = input.mouse.pos_y >= home_button_y && input.mouse.pos_y <= home_button_y + (SCREEN_BUTTON_SIZE * 2.0 / 5.0f);
+  bool roof_hovered_x_01 = input.mouse.pos_x >= home_button_x + roof_slope_const;
+  bool roof_hovered_x_02 = input.mouse.pos_x <= home_button_x + SCREEN_BUTTON_SIZE - roof_slope_const;
+  bool roof_hovered = roof_hovered_y && roof_hovered_x_01 && roof_hovered_x_02;
+  bool base_hovered_x = input.mouse.pos_x >= home_button_x + SCREEN_BUTTON_SIZE / 10.0f && input.mouse.pos_x <= home_button_x + SCREEN_BUTTON_SIZE - (SCREEN_BUTTON_SIZE / 10.0f);
+  bool base_hovered_y = input.mouse.pos_y >= home_button_y + (SCREEN_BUTTON_SIZE * 2.0f / 5.0f) && input.mouse.pos_y <= home_button_y + SCREEN_BUTTON_SIZE;
+  bool base_hovered = base_hovered_x && base_hovered_y; 
+
+  if ((roof_hovered || base_hovered) || input.input_keys[BUTTON_ESCAPE].is_down) {
+    SDL_SetTextureColorMod(game_renderer.home_button_texture, 201, 49, 33);
+    SDL_RenderTexture(game_renderer.renderer, game_renderer.home_button_texture, NULL, &home_button_rect);
+    if (ButtonPressed(MOUSE_BUTTON_LEFT)) {
+      game_state.current_state = STATE_MENU;
+    }
+  }
+  else {
+    SDL_SetTextureColorMod(game_renderer.home_button_texture, 255, 255, 255);
+    SDL_RenderTexture(game_renderer.renderer, game_renderer.home_button_texture, NULL, &home_button_rect);
   }
 }

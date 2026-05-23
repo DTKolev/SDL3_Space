@@ -20,7 +20,7 @@
 #define MAX_BACKGROUND_STAR_SPEED 30.0f
 #define MIN_BACKGROUND_STAR_BRIGHTNESS 0.2f
 
-#define PLAY_BUTTON_SIZE 200.0f
+#define SCREEN_BUTTON_SIZE 200.0f
 
 //---------------------- TYPE DEFINITIONS
 
@@ -110,7 +110,8 @@ class Renderer {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* default_star_texture;
-    SDL_Texture* triangle_texture;
+    SDL_Texture* play_button_texture;
+    SDL_Texture* home_button_texture;
 
     void CalculateOriginOffset();
 
@@ -120,7 +121,8 @@ class Renderer {
 
     //Planet rendering helper functions
     void PreRenderDefaultStarTexture();
-    void PreRenderTriangleTexture();
+    void PreRenderPlayButtonTexture();
+    void PreRenderHomeButtonTexture();
     void PreRenderPlanetTexture(Planet* planet);
     void RenderPlanet(Planet planet);
 
@@ -168,8 +170,8 @@ class SpaceGame {
     //Visual element rendering
     void CreateBackground();
     void RenderBackground();
-    void RenderPlayButton();
-
+    void RenderPlayButton(float play_button_x, float play_button_y);
+    void RenderHomeButton(float home_button_x, float home_button_y);
     //Delta time calculation
     void CalculateDeltaTime();
 

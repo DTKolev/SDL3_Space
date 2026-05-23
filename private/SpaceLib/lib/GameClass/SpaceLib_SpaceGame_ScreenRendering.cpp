@@ -1,25 +1,15 @@
 #include "SpaceHeader.hpp"
 
 void SpaceGame::RenderMenu() {
-  SDL_SetRenderDrawColor(game_renderer.renderer, 0, 0, 0, 255);
-  SDL_RenderClear(game_renderer.renderer);
-  RenderBackground();
-  RenderPlayButton();
-  SDL_RenderPresent(game_renderer.renderer);
+  RenderPlayButton(game_renderer.window_width / 2.0f, (game_renderer.window_height / 4.0f) * 3.0f);
 }
 
 void SpaceGame::RenderPlaying() {
-  SDL_SetRenderDrawColor(game_renderer.renderer, 0, 0, 0, 0);
-  SDL_RenderClear(game_renderer.renderer);
   UpdatePlanetOrbits();
-  RenderBackground();
-  RenderPlanets();
-  SDL_RenderPresent(game_renderer.renderer);
-  
+  RenderPlanets();  
 }
 
 void SpaceGame::RenderPause() {
-  SDL_SetRenderDrawColor(game_renderer.renderer, 0, 0, 0, 255);
-  SDL_RenderClear(game_renderer.renderer);
-  SDL_RenderPresent(game_renderer.renderer);
+  RenderPlayButton(game_renderer.window_width / 4.0f, (game_renderer.window_height / 2.0f));
+  RenderHomeButton((game_renderer.window_width / 4.0f) * 3.0f, (game_renderer.window_height / 2.0f));
 }
