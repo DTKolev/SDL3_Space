@@ -114,6 +114,7 @@ class Renderer {
     SDL_Texture* default_star_texture;
     SDL_Texture* play_button_texture;
     SDL_Texture* home_button_texture;
+    SDL_Texture* title_texture;
 
     void CalculateOriginOffset();
 
@@ -125,6 +126,7 @@ class Renderer {
     void PreRenderDefaultStarTexture();
     void PreRenderPlayButtonTexture();
     void PreRenderHomeButtonTexture();
+    void PreRenderTitleTexture();
     void PreRenderPlanetTexture(Planet* planet);
     void RenderPlanet(Planet planet);
 
