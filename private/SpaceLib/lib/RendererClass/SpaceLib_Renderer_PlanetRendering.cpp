@@ -108,3 +108,33 @@ void Renderer::PreRenderDefaultStarTexture() {
   //Restore the old render target
   SDL_SetRenderTarget(renderer, old_render_target);
 }
+
+void Renderer::PreRenderTriangleTexture() {
+  triangle_texture = nullptr;
+  triangle_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 100, 100);
+  if (triangle_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
+
+  //Set texture properties
+  SDL_SetTextureBlendMode(triangle_texture, SDL_BLENDMODE_BLEND);
+  SDL_SetTextureScaleMode(triangle_texture, SDL_SCALEMODE_LINEAR);
+
+  //Store the old render target (the game window in this case)
+  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
+  //Set the new render target (the triangle texture)
+  SDL_SetRenderTarget(renderer, triangle_texture);
+
+  //Fill texture with transparent color and set render draw color
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderClear(renderer);
+
+  SDL_Vertex vertecies[3] = {
+    {{0.0f, 0.0f}, {255, 255, 255, 255}, {0.0f, 0.0f}},
+    {{0.0f, 100.0f}, {255, 255, 255, 255}, {0.0f, 1.0f}},
+    {{100.0f, 50.0f}, {255, 255, 255, 255}, {1.0f, 0.5f}}
+  };
+
+  SDL_RenderGeometry(renderer, NULL, vertecies, 3, NULL, 0);
+
+  //Restore the old render target
+  SDL_SetRenderTarget(renderer, old_render_target);
+}

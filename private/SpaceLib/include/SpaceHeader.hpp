@@ -20,6 +20,8 @@
 #define MAX_BACKGROUND_STAR_SPEED 30.0f
 #define MIN_BACKGROUND_STAR_BRIGHTNESS 0.2f
 
+#define PLAY_BUTTON_SIZE 200.0f
+
 //---------------------- TYPE DEFINITIONS
 
 //---------------------- ENUMERATORS
@@ -108,6 +110,7 @@ class Renderer {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* default_star_texture;
+    SDL_Texture* triangle_texture;
 
     void CalculateOriginOffset();
 
@@ -117,6 +120,7 @@ class Renderer {
 
     //Planet rendering helper functions
     void PreRenderDefaultStarTexture();
+    void PreRenderTriangleTexture();
     void PreRenderPlanetTexture(Planet* planet);
     void RenderPlanet(Planet planet);
 
@@ -137,6 +141,7 @@ class SpaceGame {
     //Input handling
     void ResetButtonStates();
     void HandleSingleButton(LogicalKeyCode key);
+    void HandleSingleMouseButton(LogicalKeyCode key);
     bool ButtonPressed(LogicalKeyCode key);
     bool ButtonReleased(LogicalKeyCode key);
     void HandleMouseScrollInput();

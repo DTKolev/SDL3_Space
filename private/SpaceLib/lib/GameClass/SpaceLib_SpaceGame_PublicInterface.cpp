@@ -44,6 +44,7 @@ void SpaceGame::GameInit() {
 
   CreateBackground();
   game_renderer.PreRenderDefaultStarTexture();
+  game_renderer.PreRenderTriangleTexture();
 
   //Set game loop variables
   game_state.game_running = true;
@@ -59,6 +60,7 @@ void SpaceGame::GameRun() {
     switch (game_state.current_state) {
       case STATE_MENU:
         HandleMenu();
+        RenderMenu();
         break;
       case STATE_PLAYING:
         HandlePlaying();
@@ -79,6 +81,7 @@ void SpaceGame::GameRun() {
 void SpaceGame::GameTerminate() {
   ClearPlanetTextures();
   SDL_DestroyTexture(game_renderer.default_star_texture);
+  SDL_DestroyTexture(game_renderer.triangle_texture);
   SDL_DestroyRenderer(game_renderer.renderer);
   SDL_DestroyWindow(game_renderer.window);
   SDL_Quit();

@@ -11,6 +11,11 @@ void SpaceGame::HandleSingleButton(LogicalKeyCode key) {
   input.input_keys[key].is_down = input.input_event.key.down;
 }
 
+void SpaceGame::HandleSingleMouseButton(LogicalKeyCode key) {
+  input.input_keys[key].has_changed = (input.input_keys[key].is_down != input.input_event.button.down);
+  input.input_keys[key].is_down = input.input_event.button.down;
+}
+
 bool SpaceGame::ButtonPressed(LogicalKeyCode key) {
   return (input.input_keys[key].has_changed && input.input_keys[key].is_down);
 }
@@ -59,10 +64,10 @@ void SpaceGame::HandleInput() {
       case SDL_EVENT_MOUSE_BUTTON_DOWN:
         switch (input.input_event.button.button) {
           case SDL_BUTTON_LEFT:
-            HandleSingleButton(MOUSE_BUTTON_LEFT);
+            HandleSingleMouseButton(MOUSE_BUTTON_LEFT);
             break;
           case SDL_BUTTON_RIGHT:
-            HandleSingleButton(MOUSE_BUTTON_RIGHT);
+            HandleSingleMouseButton(MOUSE_BUTTON_RIGHT);
           default: break;
         }
         input.mouse.pos_x = input.input_event.button.x; //Record mouse X and Y position (relative to window) at the time of press/release
