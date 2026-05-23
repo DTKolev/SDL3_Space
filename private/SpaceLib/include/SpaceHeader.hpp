@@ -120,11 +120,6 @@ class Renderer {
     void PreRenderPlanetTexture(Planet* planet);
     void RenderPlanet(Planet planet);
 
-    //High-level rendering functions
-    void RenderMenu();
-    void RenderPlaying();
-    void RenderPause();
-
     //Class constructor
     Renderer();
 };
@@ -152,6 +147,11 @@ class SpaceGame {
     void HandlePlaying();
     void HandlePause();
 
+    //Screen rendering
+    void RenderMenu();
+    void RenderPlaying();
+    void RenderPause();
+
     //Planets utility functions
     void SetRandomProperties(Planet* planet);
     void CalculatePlanetOrbitPosition(Planet* planet);
@@ -171,7 +171,6 @@ class SpaceGame {
     float MaxF(float value1, float value2);
     float InvLerpF(float value, float min, float max);
   public:
-    SpaceGame();
     void GameInit();
     void GameRun();
     void GameTerminate();

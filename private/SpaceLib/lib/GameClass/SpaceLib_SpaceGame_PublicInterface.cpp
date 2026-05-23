@@ -62,22 +62,15 @@ void SpaceGame::GameRun() {
         break;
       case STATE_PLAYING:
         HandlePlaying();
-        //game_renderer.RenderCurrentScreen(STATE_PLAYING);
+        RenderPlaying();
         break;
       case STATE_PAUSE:
         HandlePause();
-        //game_renderer.RenderCurrentScreen(STATE_PAUSE);
         break;
       case STATE_EXIT:
         game_state.game_running = false;
         break;
     }
-    SDL_SetRenderDrawColor(game_renderer.renderer, 0, 0, 0, 0);
-    SDL_RenderClear(game_renderer.renderer);
-    UpdatePlanetOrbits();
-    RenderBackground();
-    RenderPlanets();
-    SDL_RenderPresent(game_renderer.renderer);
     CalculateDeltaTime();
   }
 
