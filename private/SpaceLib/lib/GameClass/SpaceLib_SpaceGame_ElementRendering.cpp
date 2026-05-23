@@ -49,3 +49,29 @@ void SpaceGame::RenderBackground() {
     SDL_RenderPoint(game_renderer.renderer, background_stars[i].star_location.x, background_stars[i].star_location.y);
   }
 }
+
+void SpaceGame::RenderPlayButton() {
+  float play_button_x = game_renderer.window_width / 2.0f - PLAY_BUTTON_SIZE / 2.0f;
+  float play_button_y = (game_renderer.window_height / 4.0f) * 3.0f - PLAY_BUTTON_SIZE / 2.0f;
+  SDL_FRect play_button_rect = {
+    play_button_x,
+    play_button_y,
+    PLAY_BUTTON_SIZE,
+    PLAY_BUTTON_SIZE
+  };
+
+  float slope_ratio = (input.mouse.pos_x - play_button_x) / 2.0f;
+  bool mouse_x_hovered = input.mouse.pos_x >= play_button_x && input.mouse.pos_x <= (play_button_x + PLAY_BUTTON_SIZE);
+  bool mouse_y_hovered = input.mouse.pos_y >= play_button_y + slope_ratio && input.mouse.pos_y <= (play_button_y + PLAY_BUTTON_SIZE) - slope_ratio;
+  if (mouse_x_hovered && mouse_y_hovered) {
+    SDL_SetTextureColorMod(game_renderer.triangle_texture, 56, 178, 94);
+    SDL_RenderTexture(game_renderer.renderer, game_renderer.triangle_texture, NULL, &play_button_rect);
+    if (ButtonPressed(MOUSE_BUTTON_LEFT)) {
+      game_state.current_state = STATE_PLAYING;
+    }
+  }
+  else {
+    SDL_SetTextureColorMod(game_renderer.triangle_texture, 255, 255, 255);
+    SDL_RenderTexture(game_renderer.renderer, game_renderer.triangle_texture, NULL, &play_button_rect);
+  }
+}

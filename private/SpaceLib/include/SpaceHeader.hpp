@@ -145,6 +145,7 @@ class SpaceGame {
     bool ButtonPressed(LogicalKeyCode key);
     bool ButtonReleased(LogicalKeyCode key);
     void HandleMouseScrollInput();
+    void HandleMouseMotionInput();
     void HandleInput();
 
     //State machine
@@ -164,9 +165,10 @@ class SpaceGame {
     void UpdatePlanetOrbits();
     void RenderPlanets();
 
-    //Background utility functions
+    //Visual element rendering
     void CreateBackground();
     void RenderBackground();
+    void RenderPlayButton();
 
     //Delta time calculation
     void CalculateDeltaTime();

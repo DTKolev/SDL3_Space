@@ -32,6 +32,11 @@ void SpaceGame::HandleMouseScrollInput() {
   game_renderer.CalculateOriginOffset(); //Recalculate the grid origin position to center the frame with the new scale factor
 }
 
+void SpaceGame::HandleMouseMotionInput() {
+  input.mouse.pos_x = input.input_event.motion.x;
+  input.mouse.pos_y = input.input_event.motion.y;
+}
+
 void SpaceGame::HandleInput() {
   ResetButtonStates();
   while (SDL_PollEvent(&input.input_event)) {
@@ -75,6 +80,9 @@ void SpaceGame::HandleInput() {
         break;
       case SDL_EVENT_MOUSE_WHEEL: //Handle mouse scroll
         HandleMouseScrollInput();
+        break;
+      case SDL_EVENT_MOUSE_MOTION: //Handle mouse motion
+        HandleMouseMotionInput();
         break;
       case SDL_EVENT_WINDOW_RESIZED:
         game_renderer.window_width = input.input_event.window.data1;
