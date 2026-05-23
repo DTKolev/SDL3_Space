@@ -135,3 +135,38 @@ void Renderer::PreRenderHomeButtonTexture() {
   //Restore the old render target
   SDL_SetRenderTarget(renderer, old_render_target);
 }
+
+void Renderer::PreRenderTitleTexture() {
+  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
+  PrepareTextureForPreRendering(&title_texture, 87, 57);
+
+  //Build the letter "S"
+  SDL_FRect s_rects[5] = {
+    {0.0f, 0.0f, 15.0f, 3.0f},
+    {0.0f, 0.0f, 3.0f, 15.0f},
+    {0.0f, 12.0f, 15.0f, 3.0f},
+    {12.0f, 12.0f, 3.0f, 15.0f},
+    {0.0f, 24.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "P"
+  SDL_FRect p_rects[4] = {
+    {18.0f, 0.0f, 3.0f, 27.0f},
+    {18.0f, 0.0f, 15.0f, 3.0f},
+    {30.0f, 0.0f, 3.0f, 15.0f},
+    {18.0f, 12.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "A"
+  SDL_FRect a_rects[4] = {
+    {36.0f, 0.0f, 3.0f, 27.0f},
+    {36.0f, 0.0f, 15.0f, 3.0f},
+    {48.0f, 0.0f, 3.0f, 27.0f},
+    {36.0f, 12.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "C"
+  SDL_FRect c_rects[3] = {
+    {54.0f, 0.0f, 3.0f, 27.0f},
+    {54.0f, 0.0f, 15.0f, 3.0f},
+    {54.0f, 24.0f, 15.0f, 3.0f}
+  };
+
+}
