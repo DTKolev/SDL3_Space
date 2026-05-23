@@ -1,27 +1,29 @@
 #include "SpaceHeader.hpp"
 
+//Creates a texture with the spcified parameters and makes it the render target
+void Renderer::PrepareTextureForPreRendering(SDL_Texture** texture, int width, int height) {
+  *texture = nullptr;
+  *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
+  if (*texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
+
+  SDL_SetTextureBlendMode(*texture, SDL_BLENDMODE_BLEND);
+  SDL_SetTextureScaleMode(*texture, SDL_SCALEMODE_LINEAR);
+
+  SDL_SetRenderTarget(renderer, *texture);
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+  SDL_RenderClear(renderer);
+}
+
 void Renderer::PreRenderPlanetTexture(Planet* planet) {
   int radius = 50;
   int diameter = 100;
 
-  //Create the planet texture
-  planet->planet_texture = nullptr;
-  planet->planet_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, diameter, diameter);
-  if (planet->planet_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
-
-  //Set texture properties
-  SDL_SetTextureBlendMode(planet->planet_texture, SDL_BLENDMODE_BLEND);
-  SDL_SetTextureScaleMode(planet->planet_texture, SDL_SCALEMODE_LINEAR);
-
   //Store the old render target (the game window in this case)
-  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer); 
-  
-  //Set the new render target (the current planet's texture)
-  SDL_SetRenderTarget(renderer, planet->planet_texture);
+  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
 
-  //Fill texture with transparent color and set render draw color
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-  SDL_RenderClear(renderer);
+  //Create the planet texture and set it as the new render target
+  PrepareTextureForPreRendering(&planet->planet_texture, diameter, diameter);
+
   SDL_SetRenderDrawColor(renderer, planet->planet_color.r, planet->planet_color.g, planet->planet_color.b, planet->planet_color.a);
 
   //Draw a filled circle on the texture
@@ -71,22 +73,10 @@ void Renderer::RenderPlanet(Planet planet) {
 }
 
 void Renderer::PreRenderDefaultStarTexture() {
-  default_star_texture = nullptr;
-  default_star_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 10, 10);
-  if (default_star_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
-
-  //Set texture properties
-  SDL_SetTextureBlendMode(default_star_texture, SDL_BLENDMODE_BLEND);
-  SDL_SetTextureScaleMode(default_star_texture, SDL_SCALEMODE_LINEAR);
-
-  //Store the old render target (the game window in this case)
+  //Store the old render target (the game window in this case) and create the default star texture and set it as the new render target
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  //Set the new render target (the default star texture)
-  SDL_SetRenderTarget(renderer, default_star_texture);
-
-  //Fill texture with transparent color and set render draw color
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-  SDL_RenderClear(renderer);
+  PrepareTextureForPreRendering(&default_star_texture, 10, 10);
+ 
   int center_brightness = 255;
   SDL_SetRenderDrawColor(renderer, center_brightness, center_brightness, center_brightness, 255);
 
@@ -110,22 +100,9 @@ void Renderer::PreRenderDefaultStarTexture() {
 }
 
 void Renderer::PreRenderPlayButtonTexture() {
-  play_button_texture = nullptr;
-  play_button_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 100, 100);
-  if (play_button_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
-
-  //Set texture properties
-  SDL_SetTextureBlendMode(play_button_texture, SDL_BLENDMODE_BLEND);
-  SDL_SetTextureScaleMode(play_button_texture, SDL_SCALEMODE_LINEAR);
-
-  //Store the old render target (the game window in this case)
+  //Store the old render target (the game window in this case) and create the play button texture and set it as the new render target
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  //Set the new render target (the play button texture)
-  SDL_SetRenderTarget(renderer, play_button_texture);
-
-  //Fill texture with transparent color and set render draw color
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-  SDL_RenderClear(renderer);
+  PrepareTextureForPreRendering(&play_button_texture, 100, 100);
 
   SDL_Vertex vertecies[3] = {
     {{0.0f, 0.0f}, {255, 255, 255, 255}, {0.0f, 0.0f}},
@@ -140,31 +117,18 @@ void Renderer::PreRenderPlayButtonTexture() {
 }
 
 void Renderer::PreRenderHomeButtonTexture() {
-  home_button_texture = nullptr;
-  home_button_texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 100, 100);
-  if (home_button_texture == nullptr) return; //Stop executing the function if the texture isn't created successfully
-
-  //Set texture properties
-  SDL_SetTextureBlendMode(home_button_texture, SDL_BLENDMODE_BLEND);
-  SDL_SetTextureScaleMode(home_button_texture, SDL_SCALEMODE_LINEAR);
-
   //Store the old render target (the game window in this case)
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  //Set the new render target (the home button texture)
-  SDL_SetRenderTarget(renderer, home_button_texture);
-
-  //Fill texture with transparent color and set render draw color
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-  SDL_RenderClear(renderer);
-
-  //Draw the fome icon from a filled FRect for base and triangle roof
+  PrepareTextureForPreRendering(&home_button_texture, 100, 100);
+  
+  //Draw the home icon from a filled FRect for base and triangle roof
   SDL_FRect home_base = {10.0f, 40.0f, 80.0f, 60.0f};
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
   SDL_RenderFillRect(renderer, &home_base);
   SDL_Vertex roof_vertices[3] = {
     {{0.0f, 40.0f}, {255, 255, 255, 255}, {0.0f, 0.4f}},
     {{100.0f, 40.0f}, {255, 255, 255, 255}, {1.0f, 0.4f}},
-    {{50.0f, 10.0f}, {255, 255, 255, 255}, {0.5f, 0.0f}}
+    {{50.0f, 0.0f}, {255, 255, 255, 255}, {0.5f, 0.0f}}
   };
   SDL_RenderGeometry(renderer, NULL, roof_vertices, 3, NULL, 0);
 

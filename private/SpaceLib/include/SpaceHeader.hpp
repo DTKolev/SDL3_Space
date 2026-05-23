@@ -98,6 +98,8 @@ typedef struct {
 
 //---------------------- SUPPORT CLASSES
 class Renderer {
+  private:
+    void PrepareTextureForPreRendering(SDL_Texture** texture, int width, int height);
   public:
     const float scale_change_sensitivity = 0.1;
     const float min_scale = 0.1;
