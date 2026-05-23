@@ -1,8 +1,6 @@
 #include "SpaceHeader.hpp"
 
 void SpaceGame::CreateBackground() {
-  int window_x, window_y;
-  SDL_GetWindowPosition(game_renderer.window, &window_x, &window_y);
  for(int i = 0; i < BACKGROUND_STAR_AMOUNT; i++) {
   background_stars[i].star_location.x = (SDL_randf() * (float)game_state.display_data.display_mode->w);
   background_stars[i].star_location.y = (SDL_randf() * (float)game_state.display_data.display_mode->h);
@@ -63,7 +61,7 @@ void SpaceGame::RenderPlayButton() {
   float slope_ratio = (input.mouse.pos_x - play_button_x) / 2.0f;
   bool mouse_x_hovered = input.mouse.pos_x >= play_button_x && input.mouse.pos_x <= (play_button_x + PLAY_BUTTON_SIZE);
   bool mouse_y_hovered = input.mouse.pos_y >= play_button_y + slope_ratio && input.mouse.pos_y <= (play_button_y + PLAY_BUTTON_SIZE) - slope_ratio;
-  if (mouse_x_hovered && mouse_y_hovered) {
+  if ((mouse_x_hovered && mouse_y_hovered) || input.input_keys[BUTTON_RETURN].is_down) {
     SDL_SetTextureColorMod(game_renderer.triangle_texture, 56, 178, 94);
     SDL_RenderTexture(game_renderer.renderer, game_renderer.triangle_texture, NULL, &play_button_rect);
     if (ButtonPressed(MOUSE_BUTTON_LEFT)) {
