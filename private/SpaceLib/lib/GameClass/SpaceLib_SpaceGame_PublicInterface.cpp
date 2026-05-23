@@ -36,17 +36,15 @@ void SpaceGame::GameInit() {
   planets[0].planet_center.grid_y = 0.0;
   planets[0].orbit_speed = 0.0;
   game_renderer.PreRenderPlanetTexture(&planets[0]);
-  //Pre-render the remaining planets and place them on random positions
-  for(int i = 1; i < PLANET_AMOUNT; i++) {
-    SetRandomProperties(&planets[i]);
-    game_renderer.PreRenderPlanetTexture(&planets[i]);
-  }
 
   CreateBackground();
   game_renderer.PreRenderDefaultStarTexture();
   game_renderer.PreRenderPlayButtonTexture();
   game_renderer.PreRenderHomeButtonTexture();
   game_renderer.PreRenderTitleTexture();
+
+  input.play_button_pressed = false;
+  input.home_button_pressed = false;
 
   //Set game loop variables
   game_state.game_running = true;

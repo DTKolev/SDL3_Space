@@ -62,6 +62,7 @@ typedef struct {
   Button input_keys[button_amount];
   Mouse mouse;
   SDL_Event input_event;
+  bool play_button_pressed, home_button_pressed;
 } Input;
 
 typedef struct {

@@ -65,7 +65,7 @@ void SpaceGame::RenderPlayButton(float play_button_x, float play_button_y) {
     SDL_SetTextureColorMod(game_renderer.play_button_texture, 56, 178, 94);
     SDL_RenderTexture(game_renderer.renderer, game_renderer.play_button_texture, NULL, &play_button_rect);
     if (ButtonPressed(MOUSE_BUTTON_LEFT)) {
-      game_state.current_state = STATE_PLAYING;
+      input.play_button_pressed = true;
     }
   }
   else {
@@ -97,7 +97,7 @@ void SpaceGame::RenderHomeButton(float home_button_x, float home_button_y) {
     SDL_SetTextureColorMod(game_renderer.home_button_texture, 201, 49, 33);
     SDL_RenderTexture(game_renderer.renderer, game_renderer.home_button_texture, NULL, &home_button_rect);
     if (ButtonPressed(MOUSE_BUTTON_LEFT)) {
-      game_state.current_state = STATE_MENU;
+      input.home_button_pressed = true;
     }
   }
   else {
