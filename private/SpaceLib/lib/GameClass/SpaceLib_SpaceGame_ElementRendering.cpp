@@ -1,10 +1,15 @@
 #include "SpaceHeader.hpp"
 
 void SpaceGame::CreateBackground() {
+  float brightness_f;
  for(int i = 0; i < BACKGROUND_STAR_AMOUNT; i++) {
   background_stars[i].star_location.x = (SDL_randf() * (float)game_state.display_data.display_mode->w);
   background_stars[i].star_location.y = (SDL_randf() * (float)game_state.display_data.display_mode->h);
   background_stars[i].star_speed = MIN_BACKGROUND_STAR_SPEED + (SDL_randf() * (MAX_BACKGROUND_STAR_SPEED - MIN_BACKGROUND_STAR_SPEED));
+
+  brightness_f = InvLerpF(background_stars[i].star_speed, MIN_BACKGROUND_STAR_SPEED, MAX_BACKGROUND_STAR_SPEED);
+  brightness_f = ClampF(brightness_f, MIN_BACKGROUND_STAR_BRIGHTNESS, 1.0);
+  background_stars[i].star_brightness = (int)(brightness_f * 255.0);
  }
 }
 
@@ -31,19 +36,18 @@ void SpaceGame::RenderBackground() {
         background_stars[i].star_location.y = (SDL_randf() * game_state.display_data.display_mode->h);
       }
     }
-    //Calculate star brightness based on its speed
-    background_stars[i].star_brightness = InvLerpF(background_stars[i].star_speed, MIN_BACKGROUND_STAR_SPEED, MAX_BACKGROUND_STAR_SPEED);
-    background_stars[i].star_brightness = ClampF(background_stars[i].star_brightness, MIN_BACKGROUND_STAR_BRIGHTNESS, 1.0);
-    brightness_int = (int)(background_stars[i].star_brightness * 255.0);
 
     //Draw star to screen
-    if (brightness_int > 200) {
-      star_size = 5.0f + (brightness_int - 200.0f) / 5.0f; //Size the star based on its brightness, with a minimum size of 5.0f
+    if (background_stars[i].star_brightness > 200) {
+      star_size = 5.0f + (background_stars[i].star_brightness - 200.0f) / 5.0f; //Size the star based on its brightness, with a minimum size of 5.0f
       SDL_FRect dest_rect = {background_stars[i].star_location.x - star_size/2, background_stars[i].star_location.y - star_size/2, star_size, star_size };
       SDL_RenderTexture(game_renderer.renderer, game_renderer.default_star_texture, NULL, &dest_rect);
       continue; //Skip drawing the star as a point if it's bright enough to be drawn as a texture
     }
-    SDL_SetRenderDrawColor(game_renderer.renderer, brightness_int, brightness_int, brightness_int, 255);
+    SDL_SetRenderDrawColor(
+      game_renderer.renderer, 
+      background_stars[i].star_brightness, background_stars[i].star_brightness, background_stars[i].star_brightness, 255
+    );
     SDL_RenderPoint(game_renderer.renderer, background_stars[i].star_location.x, background_stars[i].star_location.y);
   }
 }

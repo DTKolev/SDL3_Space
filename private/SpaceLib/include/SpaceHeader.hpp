@@ -40,6 +40,8 @@ typedef enum {
   BUTTON_Q,
   BUTTON_RETURN,
   BUTTON_ESCAPE,
+  BUTTON_PLUS,
+  BUTTON_MINUS,
   MOUSE_BUTTON_LEFT,
   MOUSE_BUTTON_RIGHT,
   button_amount
@@ -96,7 +98,7 @@ typedef struct {
 typedef struct {
   SDL_FPoint star_location; //Star screenspace location
   float star_speed;
-  float star_brightness;
+  int star_brightness;
 }BackgroundStar;
 
 //---------------------- SUPPORT CLASSES
@@ -156,6 +158,7 @@ class SpaceGame {
     bool ButtonReleased(LogicalKeyCode key);
     void HandleMouseScrollInput();
     void HandleMouseMotionInput();
+    void ChangeGridScale(float step);
     void HandleInput();
 
     //State machine

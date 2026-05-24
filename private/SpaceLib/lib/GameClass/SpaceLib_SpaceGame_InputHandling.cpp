@@ -26,15 +26,18 @@ bool SpaceGame::ButtonReleased(LogicalKeyCode key) {
 
 void SpaceGame::HandleMouseScrollInput() {
   float mouse_scroll = -input.input_event.wheel.y;
-  float scale_factor = 1.0 + (mouse_scroll * game_renderer.scale_change_sensitivity);
-
-  game_renderer.grid_scale = ClampF(game_renderer.grid_scale * scale_factor, game_renderer.min_scale, game_renderer.max_scale);
-  game_renderer.CalculateOriginOffset(); //Recalculate the grid origin position to center the frame with the new scale factor
+  ChangeGridScale(mouse_scroll);
 }
 
 void SpaceGame::HandleMouseMotionInput() {
   input.mouse.pos_x = input.input_event.motion.x;
   input.mouse.pos_y = input.input_event.motion.y;
+}
+
+void SpaceGame::ChangeGridScale(float step) {
+  float scale_factor = 1.0 + (step * game_renderer.scale_change_sensitivity);
+  game_renderer.grid_scale = ClampF(game_renderer.grid_scale * scale_factor, game_renderer.min_scale, game_renderer.max_scale);
+  game_renderer.CalculateOriginOffset(); //Recalculate the grid origin position to center the frame with
 }
 
 void SpaceGame::HandleInput() {
@@ -55,6 +58,16 @@ void SpaceGame::HandleInput() {
             break;
           case SDLK_Q:
             HandleSingleButton(BUTTON_Q);
+            break;
+          case SDLK_PLUS:
+          case SDLK_KP_PLUS:
+            HandleSingleButton(BUTTON_PLUS);
+            ChangeGridScale(-1.0f);
+            break;
+          case SDLK_MINUS:
+          case SDLK_KP_MINUS:
+            HandleSingleButton(BUTTON_MINUS);
+            ChangeGridScale(1.0f);
             break;
           case SDLK_RETURN:
           case SDLK_RETURN2:
