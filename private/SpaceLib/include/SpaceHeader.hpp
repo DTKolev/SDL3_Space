@@ -93,6 +93,7 @@ typedef struct {
   float orbit_radius; //Orbit radius in grid units
   float phase; //Planet's progress along its orbit path in the range of 0-1
   float orbit_speed;
+  bool being_moved;
 } Planet;
 
 typedef struct {
@@ -171,12 +172,14 @@ class SpaceGame {
     void RenderPlaying();
     void RenderPause();
 
-    //Planets utility functions
+    //Game utility functions
     void SetRandomProperties(Planet* planet);
     void CalculatePlanetOrbitPosition(Planet* planet);
     void ClearPlanetTextures();
     void UpdatePlanetOrbits();
     void RenderPlanets();
+    bool PlanetIsHovered(Planet planet);
+    void ManualPlanetMove();
 
     //Visual element rendering
     void CreateBackground();

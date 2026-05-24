@@ -25,8 +25,7 @@ bool SpaceGame::ButtonReleased(LogicalKeyCode key) {
 }
 
 void SpaceGame::HandleMouseScrollInput() {
-  float mouse_scroll = -input.input_event.wheel.y;
-  ChangeGridScale(mouse_scroll);
+  ChangeGridScale(-input.input_event.wheel.y);
 }
 
 void SpaceGame::HandleMouseMotionInput() {

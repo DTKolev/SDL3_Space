@@ -7,6 +7,7 @@ void SpaceGame::RenderMenu() {
 
 void SpaceGame::RenderPlaying() {
   UpdatePlanetOrbits();
+  ManualPlanetMove();
   RenderPlanets();  
 }
 
