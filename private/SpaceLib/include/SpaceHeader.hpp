@@ -112,6 +112,7 @@ class Renderer {
 
     int window_width, window_height; //Window dimensions in pixels
     float grid_scale;
+    double title_color_shift;
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* default_star_texture;

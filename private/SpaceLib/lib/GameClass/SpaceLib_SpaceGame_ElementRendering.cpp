@@ -113,5 +113,14 @@ void SpaceGame::RenderTitle() {
     TITLE_WIDTH,
     TITLE_HEIGHT
   };
+  
+  game_renderer.title_color_shift += game_state.delta_time;
+  int red, grreen, blue;
+  red = (int)((0.5 + 0.5 * SDL_sin(game_renderer.title_color_shift)) * 255);
+  grreen = (int)((0.5 + 0.5 * SDL_sin(game_renderer.title_color_shift + SDL_PI_D * 2.0f / 3.0f)) * 255);
+  blue = (int)((0.5 + 0.5 * SDL_sin(game_renderer.title_color_shift + SDL_PI_D * 4.0f / 3.0f)) * 255);
+
+  SDL_SetTextureColorMod(game_renderer.title_texture, red, grreen, blue);
+  
   SDL_RenderTexture(game_renderer.renderer, game_renderer.title_texture, NULL, &title_rect);
 }

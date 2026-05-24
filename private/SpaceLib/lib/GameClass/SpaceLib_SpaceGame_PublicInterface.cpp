@@ -45,6 +45,7 @@ void SpaceGame::GameInit() {
 
   input.play_button_pressed = false;
   input.home_button_pressed = false;
+  game_renderer.title_color_shift = 0.0;
 
   //Set game loop variables
   game_state.game_running = true;
