@@ -175,6 +175,7 @@ class SpaceGame {
     //Game utility functions
     void SetRandomProperties(Planet* planet);
     void CalculatePlanetOrbitPosition(Planet* planet);
+    void CalculatePlanetPhase(Planet* planet);
     void ClearPlanetTextures();
     void UpdatePlanetOrbits();
     void RenderPlanets();

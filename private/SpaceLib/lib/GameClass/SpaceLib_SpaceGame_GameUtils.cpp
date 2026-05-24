@@ -23,6 +23,11 @@ void SpaceGame::CalculatePlanetOrbitPosition(Planet* planet) {
   planet->planet_center.grid_y = planet->orbit_radius * (float)SDL_sin((double)(planet->phase * SDL_PI_F * 2.0));
 }
 
+void SpaceGame::CalculatePlanetPhase(Planet* planet) {
+  planet->phase = SDL_atan2(planet->planet_center.grid_y, planet->planet_center.grid_x) / (SDL_PI_F * 2.0f);
+  if (planet->phase < 0.0f) planet->phase += 1.0f; //Ensure the phase is in the range of 0-1
+}
+
 void SpaceGame::ClearPlanetTextures() {
   for (int i = 0; i < PLANET_AMOUNT; i++) {
     SDL_DestroyTexture(planets[i].planet_texture);
@@ -76,6 +81,7 @@ void SpaceGame::ManualPlanetMove() {
         SDL_powf(planets[i].planet_center.grid_y, 2)
       );
       planets[i].orbit_speed = GRAVITATIONAL_CONSTANT / planets[i].orbit_radius;
+      CalculatePlanetPhase(&planets[i]);
     }
   }
 }
