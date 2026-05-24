@@ -6,6 +6,8 @@ void SpaceGame::HandleMenu() {
       SetRandomProperties(&planets[i]);
       game_renderer.PreRenderPlanetTexture(&planets[i]);
     }
+    game_renderer.grid_scale = 1.0f;
+    game_renderer.CalculateOriginOffset();
     game_state.current_state = STATE_PLAYING;
     input.play_button_pressed = false;
   }

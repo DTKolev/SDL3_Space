@@ -139,6 +139,7 @@ void Renderer::PreRenderHomeButtonTexture() {
 void Renderer::PreRenderTitleTexture() {
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
   PrepareTextureForPreRendering(&title_texture, 87, 57);
+  SDL_SetTextureScaleMode(title_texture, SDL_SCALEMODE_NEAREST);
 
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
