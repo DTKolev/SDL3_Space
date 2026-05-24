@@ -78,6 +78,8 @@ typedef struct {
   GameState current_state;
   double delta_time;
   bool game_running;
+  bool planet_being_moved;
+  int moved_planet_index;
 } AppState;
 
 typedef struct {
@@ -95,6 +97,12 @@ typedef struct {
   float orbit_speed;
   bool being_moved;
 } Planet;
+
+typedef struct {
+  GridPoint asteroid_location;
+  float asteroid_radius; //Asteroid radius in grid units
+  float impact_timer;
+}Asteroid;
 
 typedef struct {
   SDL_FPoint star_location; //Star screenspace location
@@ -181,6 +189,9 @@ class SpaceGame {
     void RenderPlanets();
     bool PlanetIsHovered(Planet planet);
     void ManualPlanetMove();
+
+    //Gameplay utility functions
+    Asteroid SpawnAsteroid();
 
     //Visual element rendering
     void CreateBackground();
