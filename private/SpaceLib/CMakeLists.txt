@@ -7,6 +7,7 @@ add_library(SpaceLib STATIC
   #Game (engine) class source files
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_ElementRendering.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_DeltaTime.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_Gameplay.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_GameUtils.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_PublicInterface.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_StateMachine.cpp

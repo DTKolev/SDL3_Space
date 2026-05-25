@@ -12,6 +12,8 @@
 #define MAX_PLANET_RADIUS 6.0f
 #define MIN_ORBIT_RADIUS 30.0f
 #define MAX_ORBIT_RADIUS 300.0f
+#define ORBIT_RADIUS_CHANGE_SPEED 50.0f
+
 #define STAR_RADIUS 10.0f
 #define GRAVITATIONAL_CONSTANT 5.0f
 
@@ -24,6 +26,8 @@
 #define TITLE_WIDTH 580.0f
 #define TITLE_HEIGHT TITLE_WIDTH * 57.0f / 87.0f
 
+#define ASTEROID_TIMER_START 5.0f
+
 //---------------------- TYPE DEFINITIONS
 
 //---------------------- ENUMERATORS
@@ -31,6 +35,7 @@ typedef enum {
   STATE_MENU,
   STATE_PLAYING,
   STATE_PAUSE,
+  STATE_DEATH_SCREEN,
   STATE_EXIT
 } GameState;
 
@@ -80,6 +85,7 @@ typedef struct {
   bool game_running;
   bool planet_being_moved;
   int moved_planet_index;
+  bool asteroid_is_active;
 } AppState;
 
 typedef struct {
@@ -101,7 +107,9 @@ typedef struct {
 typedef struct {
   GridPoint asteroid_location;
   float asteroid_radius; //Asteroid radius in grid units
+  float indicator_radius;
   float impact_timer;
+  bool asteroid_hit;
 }Asteroid;
 
 typedef struct {
@@ -158,6 +166,7 @@ class SpaceGame {
     Input input;
     Planet planets[PLANET_AMOUNT];
     BackgroundStar background_stars[BACKGROUND_STAR_AMOUNT];
+    Asteroid active_asteroid;
 
     //Input handling
     void ResetButtonStates();
@@ -174,11 +183,13 @@ class SpaceGame {
     void HandleMenu();
     void HandlePlaying();
     void HandlePause();
+    void HandleDeathScreen();
 
     //Screen rendering
     void RenderMenu();
     void RenderPlaying();
     void RenderPause();
+    void RenderDeathScreen();
 
     //Game utility functions
     void SetRandomProperties(Planet* planet);
@@ -189,9 +200,13 @@ class SpaceGame {
     void RenderPlanets();
     bool PlanetIsHovered(Planet planet);
     void ManualPlanetMove();
+    void ResetGame();
 
     //Gameplay utility functions
-    Asteroid SpawnAsteroid();
+    void SpawnAsteroid();
+    void UpdateAsteroid(Asteroid* asteroid);
+    void RenderAsteroid(Asteroid asteroid);
+    void CheckAsteroidCollision();
 
     //Visual element rendering
     void CreateBackground();
@@ -199,6 +214,7 @@ class SpaceGame {
     void RenderPlayButton(float play_button_x, float play_button_y);
     void RenderHomeButton(float home_button_x, float home_button_y);
     void RenderTitle();
+
     //Delta time calculation
     void CalculateDeltaTime();
 
@@ -206,6 +222,7 @@ class SpaceGame {
     float ClampF(float value, float min, float max);
     float MaxF(float value1, float value2);
     float InvLerpF(float value, float min, float max);
+    float LerpF(float fraction, float min, float max);
   public:
     void GameInit();
     void GameRun();

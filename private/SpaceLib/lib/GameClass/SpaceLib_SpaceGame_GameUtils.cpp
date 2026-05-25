@@ -43,6 +43,11 @@ void SpaceGame::RenderPlanets() {
 void SpaceGame::UpdatePlanetOrbits() {
   for (int i = 1; i < PLANET_AMOUNT; i++) {
     if (!planets[i].being_moved) {
+      if (planets[i].orbit_radius > MAX_ORBIT_RADIUS) {
+        planets[i].orbit_radius -= game_state.delta_time * ORBIT_RADIUS_CHANGE_SPEED;
+        planets[i].orbit_speed = GRAVITATIONAL_CONSTANT / planets[i].orbit_radius;
+        CalculatePlanetPhase(&planets[i]);
+      }
       planets[i].phase += game_state.delta_time * planets[i].orbit_speed;
       CalculatePlanetOrbitPosition(&planets[i]);
     }
@@ -88,4 +93,13 @@ void SpaceGame::ManualPlanetMove() {
       CalculatePlanetPhase(&planets[i]);
     }
   }
+}
+
+void SpaceGame::ResetGame() {
+  for (int i = 1; i < PLANET_AMOUNT; i++) {
+    SetRandomProperties(&planets[i]);
+    game_renderer.PreRenderPlanetTexture(&planets[i]);
+  }
+  game_renderer.grid_scale = 1.0f;
+  game_renderer.CalculateOriginOffset();
 }

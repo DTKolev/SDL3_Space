@@ -6,12 +6,21 @@ void SpaceGame::RenderMenu() {
 }
 
 void SpaceGame::RenderPlaying() {
+  SpawnAsteroid();
+  UpdateAsteroid(&active_asteroid);
   UpdatePlanetOrbits();
   ManualPlanetMove();
+  CheckAsteroidCollision();
+  RenderAsteroid(active_asteroid);
   RenderPlanets();  
 }
 
 void SpaceGame::RenderPause() {
   RenderPlayButton(game_renderer.window_width / 4.0f, (game_renderer.window_height / 2.0f));
   RenderHomeButton((game_renderer.window_width / 4.0f) * 3.0f, (game_renderer.window_height / 2.0f));
+}
+
+void SpaceGame::RenderDeathScreen() {
+  RenderPlayButton(game_renderer.window_width / 2.0f, (game_renderer.window_height / 2.0f));
+  RenderHomeButton(game_renderer.window_width / 2.0f, (game_renderer.window_height / 4.0f) * 3.0f);
 }

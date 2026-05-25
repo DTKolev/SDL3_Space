@@ -13,3 +13,7 @@ float SpaceGame::MaxF(float value1, float value2) {
 float SpaceGame::InvLerpF(float value, float min, float max) {
   return (value - min) / (max - min);
 }
+
+float SpaceGame::LerpF(float fraction, float min, float max) {
+  return min + (max - min) * fraction;
+}

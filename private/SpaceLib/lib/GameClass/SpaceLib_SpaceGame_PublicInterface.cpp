@@ -49,7 +49,8 @@ void SpaceGame::GameInit() {
 
   game_state.planet_being_moved = false;
   game_state.moved_planet_index = -1;
-
+  game_state.asteroid_is_active = false;
+  
   //Set game loop variables
   game_state.game_running = true;
   game_state.current_state = STATE_MENU;
@@ -76,6 +77,10 @@ void SpaceGame::GameRun() {
       case STATE_PAUSE:
         HandlePause();
         RenderPause();
+        break;
+      case STATE_DEATH_SCREEN:
+        HandleDeathScreen();
+        RenderDeathScreen();
         break;
       case STATE_EXIT:
         game_state.game_running = false;
