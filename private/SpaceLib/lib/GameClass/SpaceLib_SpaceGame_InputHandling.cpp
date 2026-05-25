@@ -87,8 +87,6 @@ void SpaceGame::HandleInput() {
             HandleSingleMouseButton(MOUSE_BUTTON_RIGHT);
           default: break;
         }
-        input.mouse.pos_x = input.input_event.button.x; //Record mouse X and Y position (relative to window) at the time of press/release
-        input.mouse.pos_y = input.input_event.button.y;
         break;
       case SDL_EVENT_MOUSE_WHEEL: //Handle mouse scroll
         HandleMouseScrollInput();

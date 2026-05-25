@@ -26,6 +26,8 @@
 #define TITLE_WIDTH 580.0f
 #define TITLE_HEIGHT TITLE_WIDTH * 57.0f / 87.0f
 
+#define ASTEROID_MAX_RADIUS 150.0f
+#define ASTEROID_MIN_RADIUS 50.0f
 #define ASTEROID_TIMER_START 5.0f
 
 //---------------------- TYPE DEFINITIONS
@@ -84,7 +86,6 @@ typedef struct {
   double delta_time;
   bool game_running;
   bool planet_being_moved;
-  int moved_planet_index;
   bool asteroid_is_active;
 } AppState;
 

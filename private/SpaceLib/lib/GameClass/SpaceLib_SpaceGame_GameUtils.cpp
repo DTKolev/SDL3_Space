@@ -42,9 +42,10 @@ void SpaceGame::RenderPlanets() {
 
 void SpaceGame::UpdatePlanetOrbits() {
   for (int i = 1; i < PLANET_AMOUNT; i++) {
-    if (!planets[i].being_moved) {
+    if (!planets[i].being_moved) { 
       if (planets[i].orbit_radius > MAX_ORBIT_RADIUS) {
-        planets[i].orbit_radius -= game_state.delta_time * ORBIT_RADIUS_CHANGE_SPEED;
+        float chage_speed_multiplier = planets[i].orbit_radius - MAX_ORBIT_RADIUS;
+        planets[i].orbit_radius -= game_state.delta_time * chage_speed_multiplier;
         planets[i].orbit_speed = GRAVITATIONAL_CONSTANT / planets[i].orbit_radius;
         CalculatePlanetPhase(&planets[i]);
       }
@@ -69,7 +70,13 @@ bool SpaceGame::PlanetIsHovered(Planet planet) {
 
 void SpaceGame::ManualPlanetMove() {
   for (int i = 1; i < PLANET_AMOUNT; i++) {
-    if ((PlanetIsHovered(planets[i]) && input.input_keys[MOUSE_BUTTON_LEFT].is_down) && (!game_state.planet_being_moved || game_state.moved_planet_index == i)) {
+    //Detect planet click
+    if ((PlanetIsHovered(planets[i]) && input.input_keys[MOUSE_BUTTON_LEFT].is_down) && !game_state.planet_being_moved) {
+      planets[i].being_moved = true;
+      game_state.planet_being_moved = true;
+    }
+    //Move planet if clicked
+    if (planets[i].being_moved) {
       GridPoint mouse_location = {
         .pixel_x = (int)input.mouse.pos_x,
         .pixel_y = (int)input.mouse.pos_y
@@ -77,14 +84,11 @@ void SpaceGame::ManualPlanetMove() {
       game_renderer.CalculateGridCoordinates(&mouse_location);
       planets[i].planet_center.grid_x = mouse_location.grid_x;
       planets[i].planet_center.grid_y = mouse_location.grid_y;
-      planets[i].being_moved = true;
-      game_state.planet_being_moved = true;
-      game_state.moved_planet_index = i;
     }
-    else if (PlanetIsHovered(planets[i]) && ButtonReleased(MOUSE_BUTTON_LEFT)) {
+    //Detect planet release
+    if (planets[i].being_moved && ButtonReleased(MOUSE_BUTTON_LEFT)) {
       planets[i].being_moved = false;
       game_state.planet_being_moved = false;
-      game_state.moved_planet_index = -1;
       planets[i].orbit_radius = SDL_sqrtf(
         SDL_powf(planets[i].planet_center.grid_x, 2) + 
         SDL_powf(planets[i].planet_center.grid_y, 2)
