@@ -1,9 +1,15 @@
 #include "SpaceHeader.hpp"
 
 void SpaceGame::SpawnAsteroid() {
+  float outer_most_planet = 0.0f;
+  for (int i = 1; i < PLANET_AMOUNT; i++) {
+    if (planets[i].orbit_radius > outer_most_planet) {
+      outer_most_planet = planets[i].orbit_radius;
+    }
+  }
   if (!game_state.asteroid_is_active) {
-    active_asteroid.asteroid_location.grid_x = (SDL_randf() * 2.0f - 1.0f) * MAX_ORBIT_RADIUS;
-    active_asteroid.asteroid_location.grid_y = (SDL_randf() * 2.0f - 1.0f) * MAX_ORBIT_RADIUS;
+    active_asteroid.asteroid_location.grid_x = (SDL_randf() * 2.0f - 1.0f) * outer_most_planet;
+    active_asteroid.asteroid_location.grid_y = (SDL_randf() * 2.0f - 1.0f) * outer_most_planet;
     active_asteroid.asteroid_radius = MaxF(SDL_randf() * ASTEROID_MAX_RADIUS, ASTEROID_MIN_RADIUS);
     active_asteroid.indicator_radius = active_asteroid.asteroid_radius * 0.2f;
     active_asteroid.impact_timer = ASTEROID_TIMER_START;

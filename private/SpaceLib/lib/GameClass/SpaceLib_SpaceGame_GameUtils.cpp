@@ -104,6 +104,6 @@ void SpaceGame::ResetGame() {
     SetRandomProperties(&planets[i]);
     game_renderer.PreRenderPlanetTexture(&planets[i]);
   }
-  game_renderer.grid_scale = 1.0f;
+  game_renderer.grid_scale = 2.0f;
   game_renderer.CalculateOriginOffset();
 }

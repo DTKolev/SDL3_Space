@@ -111,7 +111,7 @@ typedef struct {
   float indicator_radius;
   float impact_timer;
   bool asteroid_hit;
-}Asteroid;
+} Asteroid;
 
 typedef struct {
   SDL_FPoint star_location; //Star screenspace location
