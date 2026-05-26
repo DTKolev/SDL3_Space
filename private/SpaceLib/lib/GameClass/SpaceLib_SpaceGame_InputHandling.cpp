@@ -16,14 +16,6 @@ void SpaceGame::HandleSingleMouseButton(LogicalKeyCode key) {
   input.input_keys[key].is_down = input.input_event.button.down;
 }
 
-bool SpaceGame::ButtonPressed(LogicalKeyCode key) {
-  return (input.input_keys[key].has_changed && input.input_keys[key].is_down);
-}
-
-bool SpaceGame::ButtonReleased(LogicalKeyCode key) {
-  return (input.input_keys[key].has_changed && !input.input_keys[key].is_down);
-}
-
 void SpaceGame::HandleMouseScrollInput() {
   ChangeGridScale(-input.input_event.wheel.y);
 }

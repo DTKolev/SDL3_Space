@@ -31,6 +31,9 @@
 #define ASTEROID_MIN_RADIUS 50.0f
 #define ASTEROID_TIMER_START 5.0f
 
+#define ButtonPressed(key) (input.input_keys[key].is_down && input.input_keys[key].has_changed)
+#define ButtonReleased(key) (!input.input_keys[key].is_down && input.input_keys[key].has_changed )
+
 //---------------------- TYPE DEFINITIONS
 
 //---------------------- ENUMERATORS
@@ -121,6 +124,22 @@ typedef struct {
 }BackgroundStar;
 
 //---------------------- SUPPORT CLASSES
+class Utils {
+  public:
+    static int window_width, window_height; //Window dimensions in pixels
+    static float origin_offset_x, origin_offset_y; //Grid origin windowspace offset in grid units
+    static float grid_scale; 
+    static float ClampF(float value, float min, float max);
+    static float MaxF(float value1, float value2);
+    static float InvLerpF(float value, float min, float max);
+    static float LerpF(float fraction, float min, float max);
+    static void CalculateOriginOffset();
+    static void CalculatePixelCoordinates(GridPoint* point);
+    static void CalculateGridCoordinates(GridPoint* point);
+    static void CalculatePlanetOrbitPosition(Planet* planet);
+    static void CalculatePlanetPhase(Planet* planet);
+};
+
 class Renderer {
   private:
     void PrepareTextureForPreRendering(SDL_Texture** texture, int width, int height);
@@ -159,6 +178,97 @@ class Renderer {
     Renderer();
 };
 
+class PlanetManager {
+  private:
+    Planet planets[PLANET_AMOUNT];
+    Asteroid active_asteroid;
+    bool PlanetIsHovered(Planet planet, Input input);
+    void SetRandomProperties(Planet* planet);
+  public:
+    PlanetManager();
+    bool asteroid_hit_planet;
+    void SpawnAsteroid(AppState game_state);
+    void UpdateAsteroid(AppState game_state);
+    void UpdatePlanetOrbits(AppState game_state);
+    void ManualPlanetMove(AppState game_state, Input input);
+    void CheckAsteroidCollision();
+    void RenderAsteroid(SDL_Renderer* renderer);
+    void RenderPlanets(Renderer game_renderer); 
+    void ResetGame(AppState game_state,Renderer game_renderer);
+};
+
+class ScreenButton {
+  protected:
+    SDL_FRect button_rect;
+    SDL_Texture* button_texture;
+    bool is_hovered, is_pressed;
+    virtual void CheckButtonState(Input input) = 0;
+    virtual void Render(SDL_Renderer* renderer) = 0;
+    virtual bool Pressed() = 0;
+};
+
+class PlayButton : public ScreenButton {
+  public:
+    PlayButton(float center_x, float center_y, SDL_Texture* texture);
+    void CheckButtonState(Input input);
+    void Render(SDL_Renderer* renderer);
+    bool Pressed();
+};
+
+class HomeButton : public ScreenButton {
+  private:
+    SDL_Texture* button_texture;
+  public:
+    HomeButton(float center_x, float center_y, SDL_Texture* texture);
+    void CheckButtonState(Input input);
+    void Render(SDL_Renderer* renderer);
+    bool Pressed();
+};
+
+class GameTitle {
+  private:
+    SDL_Texture* title_texture;
+    SDL_FRect title_rect;
+    double color_shift;
+  public:
+    GameTitle(float center_x, float center_y, SDL_Texture* texture);
+    void UpdateTitle(double delta_time);
+    void Render(SDL_Renderer* renderer);
+};
+
+class MainMenu {
+  public:
+    GameTitle title;
+    PlayButton play_button;
+    MainMenu(Renderer game_renderer);
+    void UpdateMenu(AppState game_state, Input input);
+    void RenderMenu(SDL_Renderer* renderer);  
+};
+
+class GameScreen {
+
+};
+
+class PauseMenu {
+  public:
+    PlayButton play_button;
+    HomeButton home_button;
+    PauseMenu(Renderer game_renderer);
+    void UpdateMenu(Input input);
+    void RenderMenu(SDL_Renderer* renderer);
+};
+
+class DeathScreen {
+  public:
+    PlayButton play_button;
+    HomeButton home_button;
+    DeathScreen(Renderer game_renderer);
+    void UpdateMenu(Input input);
+    void RenderMenu(SDL_Renderer* renderer);
+};
+
+
+
 //---------------------- GAME CLASS
 class SpaceGame {
   private:
@@ -174,8 +284,6 @@ class SpaceGame {
     void ResetButtonStates();
     void HandleSingleButton(LogicalKeyCode key);
     void HandleSingleMouseButton(LogicalKeyCode key);
-    bool ButtonPressed(LogicalKeyCode key);
-    bool ButtonReleased(LogicalKeyCode key);
     void HandleMouseScrollInput();
     void HandleMouseMotionInput();
     void ChangeGridScale(float step);
