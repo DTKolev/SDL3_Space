@@ -106,4 +106,6 @@ void SpaceGame::ResetGame() {
   }
   game_renderer.grid_scale = 2.0f;
   game_renderer.CalculateOriginOffset();
+  game_state.planet_being_moved = false;
+  game_state.asteroid_is_active = false;
 }

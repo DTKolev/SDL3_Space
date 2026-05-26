@@ -46,9 +46,6 @@ void SpaceGame::GameInit() {
   input.play_button_pressed = false;
   input.home_button_pressed = false;
   game_renderer.title_color_shift = 0.0;
-
-  game_state.planet_being_moved = false;
-  game_state.asteroid_is_active = false;
   
   //Set game loop variables
   game_state.game_running = true;
