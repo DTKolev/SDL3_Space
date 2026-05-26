@@ -1,15 +1,18 @@
 #include "SpaceHeader.hpp"
 
-HomeButton::HomeButton(float center_x, float center_y, SDL_Texture* texture) {
+HomeButton::HomeButton(float center_x, float center_y) {
   this->button_rect = {
     center_x - (SCREEN_BUTTON_SIZE / 2.0f),
     center_y - (SCREEN_BUTTON_SIZE / 2.0f),
     SCREEN_BUTTON_SIZE,
     SCREEN_BUTTON_SIZE
   };
-  this->button_texture = texture;
   this->is_hovered = false;
   this->is_pressed = false;
+}
+
+void HomeButton::SetButtonTexture(SDL_Texture* texture) {
+  button_texture = texture;
 }
 
 void HomeButton::CheckButtonState(Input input) {
@@ -29,8 +32,11 @@ void HomeButton::CheckButtonState(Input input) {
   }
   else {
     is_hovered = false;
-    is_pressed = false;
   }
+}
+
+void HomeButton::ResetButtonState() {
+  is_pressed = false;
 }
 
 void HomeButton::Render(SDL_Renderer* renderer) {

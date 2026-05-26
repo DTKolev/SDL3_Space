@@ -2,7 +2,7 @@
 
 void SpaceGame::CreateBackground() {
   float brightness_f;
- for(int i = 0; i < BACKGROUND_STAR_AMOUNT; i++) {
+  for(int i = 0; i < BACKGROUND_STAR_AMOUNT; i++) {
   background_stars[i].star_location.x = (SDL_randf() * (float)game_state.display_data.display_mode->w);
   background_stars[i].star_location.y = (SDL_randf() * (float)game_state.display_data.display_mode->h);
   background_stars[i].star_speed = MIN_BACKGROUND_STAR_SPEED + (SDL_randf() * (MAX_BACKGROUND_STAR_SPEED - MIN_BACKGROUND_STAR_SPEED));

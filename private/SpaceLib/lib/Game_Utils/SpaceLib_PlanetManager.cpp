@@ -4,6 +4,16 @@ PlanetManager::PlanetManager() {
   this->asteroid_hit_planet = false;
 }
 
+void PlanetManager::SetStarProperties() {
+  planets[0].planet_radius = STAR_RADIUS;
+  planets[0].orbit_radius = 0.0;
+  planets[0].phase = 0.0;
+  planets[0].planet_color = {255, 255, 255, 255};
+  planets[0].planet_center.grid_x = 0.0;
+  planets[0].planet_center.grid_y = 0.0;
+  planets[0].orbit_speed = 0.0;
+}
+
 void PlanetManager::SetRandomProperties(Planet* planet) {
   //Assign random planet size and orbit
   planet->orbit_radius = Utils::MaxF(SDL_randf() * MAX_ORBIT_RADIUS, MIN_ORBIT_RADIUS);
@@ -146,6 +156,8 @@ void PlanetManager::CheckAsteroidCollision() {
 }
 
 void PlanetManager::ResetGame(AppState game_state, Renderer game_renderer) {
+  SetStarProperties();
+  game_renderer.PreRenderPlanetTexture(&planets[0]);
   for (int i = 1; i < PLANET_AMOUNT; i++) {
     SetRandomProperties(&planets[i]);
     game_renderer.PreRenderPlanetTexture(&planets[i]);
@@ -155,4 +167,10 @@ void PlanetManager::ResetGame(AppState game_state, Renderer game_renderer) {
   game_state.planet_being_moved = false;
   game_state.asteroid_is_active = false;
   asteroid_hit_planet = false;
+}
+
+PlanetManager::~PlanetManager() {
+  for (int i = 0; i < PLANET_AMOUNT; i++) {
+    SDL_DestroyTexture(planets[i].planet_texture);
+  }
 }

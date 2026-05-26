@@ -1,5 +1,15 @@
 #include "SpaceHeader.hpp"
 
+
+int Utils::window_width = 1080;
+int Utils::window_height = 720;
+float Utils::origin_offset_x = 0.0f;
+float Utils::origin_offset_y = 0.0f;
+float Utils::grid_scale = 2.0f;
+DisplayData Utils::display_data = {
+  .display_mode = SDL_GetDesktopDisplayMode(SDL_GetPrimaryDisplay())
+};
+
 float Utils::ClampF(float value, float min, float max) {
   if (value < min) return min;
   if (value > max) return max;
@@ -21,6 +31,12 @@ float Utils::LerpF(float fraction, float min, float max) {
 void Utils::CalculateOriginOffset() {
   origin_offset_x = ((float)window_width * grid_scale) / (2.0 * (float)BASE_UNIT_SIZE_PIXELS);
   origin_offset_y = ((float)window_height * grid_scale) / (2.0 * (float)BASE_UNIT_SIZE_PIXELS);
+}
+
+void Utils::ChangeGridScale(float step) {
+  float scale_factor = 1.0 + (step * scale_change_sensitivity);
+  grid_scale = ClampF(grid_scale * scale_factor, min_scale, max_scale);
+  CalculateOriginOffset(); //Recalculate the grid origin position to center the frame with
 }
 
 void Utils::CalculatePixelCoordinates(GridPoint* point) {
@@ -47,4 +63,10 @@ void Utils::CalculatePlanetOrbitPosition(Planet* planet) {
 void Utils::CalculatePlanetPhase(Planet* planet) {
   planet->phase = SDL_atan2(planet->planet_center.grid_y, planet->planet_center.grid_x) / (SDL_PI_F * 2.0f);
   if (planet->phase < 0.0f) planet->phase += 1.0f; //Ensure the phase is in the range of 0-1
+}
+
+void Utils::CalculateDeltaTime(AppState* game_state) {
+  game_state->frame_end_time = SDL_GetPerformanceCounter();
+  game_state->delta_time = (double)(game_state->frame_end_time - game_state->frame_begin_time) / (double)game_state->performance_frequency;
+  game_state->frame_begin_time = game_state->frame_end_time;
 }

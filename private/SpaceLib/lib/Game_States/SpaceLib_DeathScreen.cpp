@@ -1,9 +1,14 @@
 #include "SpaceHeader.hpp"
 
-DeathScreen::DeathScreen(Renderer game_renderer) :
-  play_button(game_renderer.window_width / 2.0f, (game_renderer.window_height / 2.0f), game_renderer.play_button_texture),
-  home_button(game_renderer.window_width / 2.0f, (game_renderer.window_height / 4.0f) * 3.0f, game_renderer.home_button_texture)
+DeathScreen::DeathScreen() :
+  play_button(Utils::window_width / 2.0f, (Utils::window_height / 2.0f)),
+  home_button(Utils::window_width / 2.0f, (Utils::window_height / 4.0f) * 3.0f)
 {}
+
+void DeathScreen::ResetButtons() {
+  play_button.ResetButtonState();
+  home_button.ResetButtonState();
+}
 
 void DeathScreen::UpdateMenu(Input input) {
   play_button.CheckButtonState(input);

@@ -1,15 +1,18 @@
 #include "SpaceHeader.hpp"
 
-PlayButton::PlayButton(float center_x, float center_y, SDL_Texture* texture) {
+PlayButton::PlayButton(float center_x, float center_y) {
   this->button_rect = {
     center_x - (SCREEN_BUTTON_SIZE / 2.0f),
     center_y - (SCREEN_BUTTON_SIZE / 2.0f),
     SCREEN_BUTTON_SIZE,
     SCREEN_BUTTON_SIZE
   };
-  this->button_texture = texture;
   this->is_hovered = false;
   this->is_pressed = false;
+}
+
+void PlayButton::SetButtonTexture(SDL_Texture* texture) {
+  button_texture = texture;
 }
 
 void PlayButton::CheckButtonState(Input input) {
@@ -24,9 +27,13 @@ void PlayButton::CheckButtonState(Input input) {
   }
   else {
     is_hovered = false;
-    is_pressed = false;
   }
 }
+
+void PlayButton::ResetButtonState() {
+  is_pressed = false;
+}
+
 void PlayButton::Render(SDL_Renderer* renderer) {
   if (is_hovered) {
     SDL_SetTextureColorMod(button_texture, 56, 178, 94);

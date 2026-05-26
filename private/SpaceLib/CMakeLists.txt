@@ -1,19 +1,23 @@
 add_library(SpaceLib STATIC
-  #Renderer class source files
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/RendererClass/SpaceLib_Renderer_Constructor.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/RendererClass/SpaceLib_Renderer_CoordinateGrid.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/RendererClass/SpaceLib_Renderer_Math.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/RendererClass/SpaceLib_Renderer_PlanetRendering.cpp
-  #Game (engine) class source files
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_ElementRendering.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_DeltaTime.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_Gameplay.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_GameUtils.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_PublicInterface.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_StateMachine.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_InputHandling.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_Math.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/GameClass/SpaceLib_SpaceGame_ScreenRendering.cpp
+  #Engine source files
+  #${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_GameClass_Constructor.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_GameClass_Input.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_GameClass_PublicInterface.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_GameClass_StateMachine.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_Renderer.cpp
+  #Game states source files
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_States/SpaceLib_DeathScreen.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_States/SpaceLib_GameScreen.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_States/SpaceLib_MainMenu.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_States/SpaceLib_PauseMenu.cpp
+  #Game utils source files
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_Utils/SpaceLib_PlanetManager.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_Utils/SpaceLib_Utils.cpp
+  #Visual elements source files
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_Background.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_GameTitle.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_HomeButton.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_PlayButton.cpp
   #Header files
   ${CMAKE_CURRENT_SOURCE_DIR}/include/SpaceHeader.hpp
 )

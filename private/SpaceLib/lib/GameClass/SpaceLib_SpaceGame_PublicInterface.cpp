@@ -85,7 +85,6 @@ void SpaceGame::GameRun() {
     SDL_RenderPresent(game_renderer.renderer);
     CalculateDeltaTime();
   }
-
 }
 
 void SpaceGame::GameTerminate() {
