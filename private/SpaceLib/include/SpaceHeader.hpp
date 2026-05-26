@@ -124,31 +124,39 @@ typedef struct {
 //---------------------- SUPPORT CLASSES
 class Utils {
   public:
-    static int window_width, window_height; //Window dimensions in pixels
-    static float origin_offset_x, origin_offset_y; //Grid origin windowspace offset in grid units
+    int window_width, window_height; //Window dimensions in pixels
+    float origin_offset_x, origin_offset_y; //Grid origin windowspace offset in grid units
 
-    static constexpr float scale_change_sensitivity = 0.1;
-    static constexpr float min_scale = 0.1;
-    static constexpr float max_scale = 10.0;
-    static float grid_scale;
+    const float scale_change_sensitivity = 0.1;
+    const float min_scale = 0.1;
+    const float max_scale = 10.0;
 
-    static DisplayData display_data;
+    float grid_scale;
+    const SDL_DisplayMode* display_mode = SDL_GetDesktopDisplayMode(SDL_GetPrimaryDisplay());
 
-    static float ClampF(float value, float min, float max);
-    static float MaxF(float value1, float value2);
-    static float InvLerpF(float value, float min, float max);
-    static float LerpF(float fraction, float min, float max);
-    static void CalculateOriginOffset();
-    static void ChangeGridScale(float step);
-    static void CalculatePixelCoordinates(GridPoint* point);
-    static void CalculateGridCoordinates(GridPoint* point);
-    static void CalculatePlanetOrbitPosition(Planet* planet);
-    static void CalculatePlanetPhase(Planet* planet);
-    static void CalculateDeltaTime(AppState* game_state);
+    float ClampF(float value, float min, float max);
+    float MaxF(float value1, float value2);
+    float InvLerpF(float value, float min, float max);
+    float LerpF(float fraction, float min, float max);
+
+    void SetWindowSize(int width, int height);
+    void SetGridScale(float scale);
+
+    void CalculateOriginOffset();
+    void ChangeGridScale(float step);
+
+    void CalculatePixelCoordinates(GridPoint* point);
+    void CalculateGridCoordinates(GridPoint* point);
+
+    void CalculatePlanetOrbitPosition(Planet* planet);
+    void CalculatePlanetPhase(Planet* planet);
+
+    void CalculateDeltaTime(AppState* game_state);
 };
 
 class Renderer {
   private:
+    Utils utils;
     void PrepareTextureForPreRendering(SDL_Texture** texture, int width, int height);
   public:
     SDL_Window* window;
@@ -171,6 +179,7 @@ class Renderer {
 
 class PlanetManager {
   private:
+    Utils utils;
     Planet planets[PLANET_AMOUNT];
     Asteroid active_asteroid;
     bool PlanetIsHovered(Planet planet, Input input);
@@ -192,6 +201,7 @@ class PlanetManager {
 
 class ScreenButton {
   protected:
+    Utils utils;
     SDL_FRect button_rect;
     SDL_Texture* button_texture;
     bool is_hovered, is_pressed;
@@ -238,6 +248,7 @@ class GameTitle {
 
 class Background {
   private:
+    Utils utils;
     BackgroundStar background_stars[BACKGROUND_STAR_AMOUNT];
     SDL_Texture* star_texture;
   public:
@@ -248,6 +259,7 @@ class Background {
 
 class MainMenu {
   private:
+    Utils utils;
     GameTitle title;
   public:
     PlayButton play_button;
@@ -267,6 +279,7 @@ class GameScreen {
 
 class PauseMenu {
   public:
+    Utils utils;
     PlayButton play_button;
     HomeButton home_button;
     PauseMenu();
@@ -277,6 +290,7 @@ class PauseMenu {
 
 class DeathScreen {
   public:
+    Utils utils;
     PlayButton play_button;
     HomeButton home_button;
     DeathScreen();
@@ -289,6 +303,8 @@ class DeathScreen {
 
 class SpaceGame {
   private:
+    Utils utils;
+
     AppState game_state;
     Renderer game_renderer;
     Input input;
@@ -315,74 +331,3 @@ class SpaceGame {
     void GameRun();
     void GameTerminate();
 };
-
-/*
-class SpaceGame {
-  private:
-    //Internal variables
-    AppState game_state;
-    Renderer game_renderer;
-    Input input;
-    Planet planets[PLANET_AMOUNT];
-    BackgroundStar background_stars[BACKGROUND_STAR_AMOUNT];
-    Asteroid active_asteroid;
-
-    //Input handling
-    void ResetButtonStates();
-    void HandleSingleButton(LogicalKeyCode key);
-    void HandleSingleMouseButton(LogicalKeyCode key);
-    void HandleMouseScrollInput();
-    void HandleMouseMotionInput();
-    void ChangeGridScale(float step);
-    void HandleInput();
-
-    //State machine
-    void HandleMenu();
-    void HandlePlaying();
-    void HandlePause();
-    void HandleDeathScreen();
-
-    //Screen rendering
-    void RenderMenu();
-    void RenderPlaying();
-    void RenderPause();
-    void RenderDeathScreen();
-
-    //Game utility functions
-    void SetRandomProperties(Planet* planet);
-    void CalculatePlanetOrbitPosition(Planet* planet);
-    void CalculatePlanetPhase(Planet* planet);
-    void ClearPlanetTextures();
-    void UpdatePlanetOrbits();
-    void RenderPlanets();
-    bool PlanetIsHovered(Planet planet);
-    void ManualPlanetMove();
-    void ResetGame();
-
-    //Gameplay utility functions
-    void SpawnAsteroid();
-    void UpdateAsteroid(Asteroid* asteroid);
-    void RenderAsteroid(Asteroid asteroid);
-    void CheckAsteroidCollision();
-
-    //Visual element rendering
-    void CreateBackground();
-    void RenderBackground();
-    void RenderPlayButton(float play_button_x, float play_button_y);
-    void RenderHomeButton(float home_button_x, float home_button_y);
-    void RenderTitle();
-
-    //Delta time calculation
-    void CalculateDeltaTime();
-
-    //Helper math functions
-    float ClampF(float value, float min, float max);
-    float MaxF(float value1, float value2);
-    float InvLerpF(float value, float min, float max);
-    float LerpF(float fraction, float min, float max);
-  public:
-    void GameInit();
-    void GameRun();
-    void GameTerminate();
-};
-*/

@@ -46,12 +46,12 @@ void SpaceGame::HandleInput() {
           case SDLK_PLUS:
           case SDLK_KP_PLUS:
             HandleSingleButton(BUTTON_PLUS);
-            Utils::ChangeGridScale(-1.0f);
+            utils.ChangeGridScale(-1.0f);
             break;
           case SDLK_MINUS:
           case SDLK_KP_MINUS:
             HandleSingleButton(BUTTON_MINUS);
-            Utils::ChangeGridScale(1.0f);
+            utils.ChangeGridScale(1.0f);
             break;
           case SDLK_RETURN:
           case SDLK_RETURN2:
@@ -74,15 +74,15 @@ void SpaceGame::HandleInput() {
         }
         break;
       case SDL_EVENT_MOUSE_WHEEL: //Handle mouse scroll
-        Utils::ChangeGridScale(-input.input_event.wheel.y);
+        utils.ChangeGridScale(-input.input_event.wheel.y);
         break;
       case SDL_EVENT_MOUSE_MOTION: //Handle mouse motion
         HandleMouseMotionInput();
         break;
       case SDL_EVENT_WINDOW_RESIZED:
-        Utils::window_width = input.input_event.window.data1;
-        Utils::window_height = input.input_event.window.data2;
-        Utils::CalculateOriginOffset();
+        utils.window_width = input.input_event.window.data1;
+        utils.window_height = input.input_event.window.data2;
+        utils.CalculateOriginOffset();
       default: break;
     }
   }

@@ -3,12 +3,12 @@
 Background::Background() {
   float brightness_f;
   for(int i = 0; i < BACKGROUND_STAR_AMOUNT; i++) {
-  background_stars[i].star_location.x = (SDL_randf() * (float)Utils::display_data.display_mode->w);
-  background_stars[i].star_location.y = (SDL_randf() * (float)Utils::display_data.display_mode->h);
+  background_stars[i].star_location.x = (SDL_randf() * (float)utils.display_mode->w);
+  background_stars[i].star_location.y = (SDL_randf() * (float)utils.display_mode->h);
   background_stars[i].star_speed = MIN_BACKGROUND_STAR_SPEED + (SDL_randf() * (MAX_BACKGROUND_STAR_SPEED - MIN_BACKGROUND_STAR_SPEED));
 
-  brightness_f = Utils::InvLerpF(background_stars[i].star_speed, MIN_BACKGROUND_STAR_SPEED, MAX_BACKGROUND_STAR_SPEED);
-  brightness_f = Utils::ClampF(brightness_f, MIN_BACKGROUND_STAR_BRIGHTNESS, 1.0);
+  brightness_f = utils.InvLerpF(background_stars[i].star_speed, MIN_BACKGROUND_STAR_SPEED, MAX_BACKGROUND_STAR_SPEED);
+  brightness_f = utils.ClampF(brightness_f, MIN_BACKGROUND_STAR_BRIGHTNESS, 1.0);
   background_stars[i].star_brightness = (int)(brightness_f * 255.0);
  }
 }
@@ -28,16 +28,16 @@ void Background::UpdateAndRenderBackground(AppState game_state, Renderer game_re
     background_stars[i].star_location.x += background_stars[i].star_speed * (float)game_state.delta_time;
     background_stars[i].star_location.y += background_stars[i].star_speed * (float)game_state.delta_time;
     //Respawn star if it goes off-display
-    star_is_outside_x = background_stars[i].star_location.x > (Utils::display_data.display_mode->w);
-    star_is_outside_y = background_stars[i].star_location.y > (Utils::display_data.display_mode->h);
+    star_is_outside_x = background_stars[i].star_location.x > (utils.display_mode->w);
+    star_is_outside_y = background_stars[i].star_location.y > (utils.display_mode->h);
     if (star_is_outside_x || star_is_outside_y) {
       if (SDL_rand(2)) {
-        background_stars[i].star_location.x = (SDL_randf() * Utils::display_data.display_mode->w);
+        background_stars[i].star_location.x = (SDL_randf() * utils.display_mode->w);
         background_stars[i].star_location.y = -(float)window_y;
       }
       else {
         background_stars[i].star_location.x = -(float)window_x;
-        background_stars[i].star_location.y = (SDL_randf() * Utils::display_data.display_mode->h);
+        background_stars[i].star_location.y = (SDL_randf() * utils.display_mode->h);
       }
     }
 

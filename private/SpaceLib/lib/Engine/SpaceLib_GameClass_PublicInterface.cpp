@@ -1,11 +1,16 @@
 #include "SpaceHeader.hpp"
 
 void SpaceGame::GameInit() {
+  std::cout << "Entry point reached\n";
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error initializing SDL", nullptr);
     SDL_Quit();
     return;
   }
+
+  utils.SetWindowSize(1080, 720);
+  utils.SetGridScale(2.0f);
+
   game_renderer.CreateWindowAndRenderer();
 
   game_renderer.PreRenderDefaultStarTexture();
@@ -19,7 +24,7 @@ void SpaceGame::GameInit() {
   death_screen.play_button.SetButtonTexture(game_renderer.play_button_texture);
   death_screen.home_button.SetButtonTexture(game_renderer.home_button_texture);
 
-  Utils::CalculateOriginOffset();
+  utils.CalculateOriginOffset();
 
   game_state.game_running = true;
   game_state.current_state = STATE_MENU;
@@ -60,10 +65,11 @@ void SpaceGame::GameRun() {
         break;
     }
     SDL_RenderPresent(game_renderer.renderer);
-    Utils::CalculateDeltaTime(&game_state);
+    utils.CalculateDeltaTime(&game_state);
   }
 }
 
 void SpaceGame::GameTerminate() {
+  std::cout << "Game exiting\n";
   SDL_Quit();
 }

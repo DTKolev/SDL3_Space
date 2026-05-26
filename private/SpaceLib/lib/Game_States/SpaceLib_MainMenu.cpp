@@ -1,8 +1,8 @@
 #include "SpaceHeader.hpp"
 
 MainMenu::MainMenu() :
-  play_button(Utils::window_width / 2.0f, (Utils::window_height / 4.0f) * 3.0f),
-  title(Utils::window_width / 2.0f, Utils::window_height / 4.0f)
+  play_button(utils.window_width / 2.0f, (utils.window_height / 4.0f) * 3.0f),
+  title(utils.window_width / 2.0f, utils.window_height / 4.0f)
 {}
 
 void MainMenu::ResetButtons() {

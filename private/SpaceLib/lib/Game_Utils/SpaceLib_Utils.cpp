@@ -1,15 +1,5 @@
 #include "SpaceHeader.hpp"
 
-
-int Utils::window_width = 1080;
-int Utils::window_height = 720;
-float Utils::origin_offset_x = 0.0f;
-float Utils::origin_offset_y = 0.0f;
-float Utils::grid_scale = 2.0f;
-DisplayData Utils::display_data = {
-  .display_mode = SDL_GetDesktopDisplayMode(SDL_GetPrimaryDisplay())
-};
-
 float Utils::ClampF(float value, float min, float max) {
   if (value < min) return min;
   if (value > max) return max;
@@ -26,6 +16,16 @@ float Utils::InvLerpF(float value, float min, float max) {
 
 float Utils::LerpF(float fraction, float min, float max) {
   return min + fraction * (max - min);
+}
+
+void Utils::SetWindowSize(int width, int height) {
+  window_width = width;
+  window_height = height;
+  CalculateOriginOffset();
+}
+
+void Utils::SetGridScale(float scale) {
+  grid_scale = scale;
 }
 
 void Utils::CalculateOriginOffset() {

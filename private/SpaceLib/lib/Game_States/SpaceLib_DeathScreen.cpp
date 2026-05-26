@@ -1,8 +1,8 @@
 #include "SpaceHeader.hpp"
 
 DeathScreen::DeathScreen() :
-  play_button(Utils::window_width / 2.0f, (Utils::window_height / 2.0f)),
-  home_button(Utils::window_width / 2.0f, (Utils::window_height / 4.0f) * 3.0f)
+  play_button(utils.window_width / 2.0f, (utils.window_height / 2.0f)),
+  home_button(utils.window_width / 2.0f, (utils.window_height / 4.0f) * 3.0f)
 {}
 
 void DeathScreen::ResetButtons() {

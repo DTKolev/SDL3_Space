@@ -1,6 +1,5 @@
 add_library(SpaceLib STATIC
   #Engine source files
-  #${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_GameClass_Constructor.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_GameClass_Input.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_GameClass_PublicInterface.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Engine/SpaceLib_GameClass_StateMachine.cpp

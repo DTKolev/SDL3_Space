@@ -1,8 +1,8 @@
 #include "SpaceHeader.hpp"
 
 PauseMenu::PauseMenu() :
-  play_button(Utils::window_width / 4.0f, (Utils::window_height / 2.0f)),
-  home_button((Utils::window_width / 4.0f) * 3.0f, (Utils::window_height / 2.0f))
+  play_button(utils.window_width / 4.0f, (utils.window_height / 2.0f)),
+  home_button((utils.window_width / 4.0f) * 3.0f, (utils.window_height / 2.0f))
 {}
 
 void PauseMenu::ResetButtons() {

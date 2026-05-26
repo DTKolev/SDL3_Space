@@ -20,7 +20,7 @@ void Renderer::PrepareTextureForPreRendering(SDL_Texture** texture, int width, i
 
 void Renderer::CreateWindowAndRenderer() {
   //Create widnow and renderer
-  window = SDL_CreateWindow("Space Game  Window", Utils::window_width, Utils::window_height, SDL_WINDOW_RESIZABLE);
+  window = SDL_CreateWindow("Space Game  Window", utils.window_width, utils.window_height, SDL_WINDOW_RESIZABLE);
   renderer = SDL_CreateRenderer(window, NULL);
   if (this->window == nullptr || renderer == nullptr) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating window or renderer", this->window);
@@ -72,8 +72,8 @@ void Renderer::PreRenderPlanetTexture(Planet* planet) {
 }
 
 void Renderer::RenderPlanet(Planet planet) {
-  int planet_radius_pixels = planet.planet_radius * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale;
-  Utils::CalculatePixelCoordinates(&planet.planet_center);
+  int planet_radius_pixels = planet.planet_radius * BASE_UNIT_SIZE_PIXELS / utils.grid_scale;
+  utils.CalculatePixelCoordinates(&planet.planet_center);
 
   //Create the destination FRect
   SDL_Rect destination_rect_int = {
