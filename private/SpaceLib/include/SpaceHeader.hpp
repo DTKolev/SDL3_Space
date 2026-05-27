@@ -124,39 +124,36 @@ typedef struct {
 //---------------------- SUPPORT CLASSES
 class Utils {
   public:
-    int window_width, window_height; //Window dimensions in pixels
-    float origin_offset_x, origin_offset_y; //Grid origin windowspace offset in grid units
+    static int window_width, window_height; //Window dimensions in pixels
+    static float origin_offset_x, origin_offset_y; //Grid origin windowspace offset in grid units
 
-    const float scale_change_sensitivity = 0.1;
-    const float min_scale = 0.1;
-    const float max_scale = 10.0;
+    static constexpr float scale_change_sensitivity = 0.1;
+    static constexpr float min_scale = 0.1;
+    static constexpr float max_scale = 10.0;
 
-    float grid_scale;
-    const SDL_DisplayMode* display_mode = SDL_GetDesktopDisplayMode(SDL_GetPrimaryDisplay());
+    static float grid_scale;
+    static DisplayData display_data;
 
-    float ClampF(float value, float min, float max);
-    float MaxF(float value1, float value2);
-    float InvLerpF(float value, float min, float max);
-    float LerpF(float fraction, float min, float max);
+    static float ClampF(float value, float min, float max);
+    static float MaxF(float value1, float value2);
+    static float InvLerpF(float value, float min, float max);
+    static float LerpF(float fraction, float min, float max);
 
-    void SetWindowSize(int width, int height);
-    void SetGridScale(float scale);
+    static void SetDisplayData();
+    static void CalculateOriginOffset();
+    static void ChangeGridScale(float step);
 
-    void CalculateOriginOffset();
-    void ChangeGridScale(float step);
+    static void CalculatePixelCoordinates(GridPoint* point);
+    static void CalculateGridCoordinates(GridPoint* point);
 
-    void CalculatePixelCoordinates(GridPoint* point);
-    void CalculateGridCoordinates(GridPoint* point);
+    static void CalculatePlanetOrbitPosition(Planet* planet);
+    static void CalculatePlanetPhase(Planet* planet);
 
-    void CalculatePlanetOrbitPosition(Planet* planet);
-    void CalculatePlanetPhase(Planet* planet);
-
-    void CalculateDeltaTime(AppState* game_state);
+    static void CalculateDeltaTime(AppState* game_state);
 };
 
 class Renderer {
   private:
-    Utils utils;
     void PrepareTextureForPreRendering(SDL_Texture** texture, int width, int height);
   public:
     SDL_Window* window;
@@ -166,7 +163,7 @@ class Renderer {
     SDL_Texture* home_button_texture;
     SDL_Texture* title_texture;
 
-    Renderer();
+    //Renderer();
     void CreateWindowAndRenderer();
     void PreRenderPlanetTexture(Planet* planet);
     void RenderPlanet(Planet planet);
@@ -174,19 +171,18 @@ class Renderer {
     void PreRenderPlayButtonTexture();
     void PreRenderHomeButtonTexture();
     void PreRenderTitleTexture();
-    ~Renderer();
+    //~Renderer();
 };
 
 class PlanetManager {
   private:
-    Utils utils;
     Planet planets[PLANET_AMOUNT];
     Asteroid active_asteroid;
     bool PlanetIsHovered(Planet planet, Input input);
     void SetStarProperties();
     void SetRandomProperties(Planet* planet);
   public:
-    PlanetManager();
+    //PlanetManager();
     bool asteroid_hit_planet;
     void SpawnAsteroid(AppState game_state);
     void UpdateAsteroid(AppState game_state);
@@ -196,42 +192,36 @@ class PlanetManager {
     void RenderAsteroid(SDL_Renderer* renderer);
     void RenderPlanets(Renderer game_renderer); 
     void ResetGame(AppState game_state,Renderer game_renderer);
-    ~PlanetManager();
+    //~PlanetManager();
 };
 
 class ScreenButton {
   protected:
-    Utils utils;
     SDL_FRect button_rect;
     SDL_Texture* button_texture;
     bool is_hovered, is_pressed;
-    virtual void SetButtonTexture(SDL_Texture* texture) = 0;
     virtual void CheckButtonState(Input input) = 0;
-    virtual void ResetButtonState() = 0;
     virtual void Render(SDL_Renderer* renderer) = 0;
-    virtual bool Pressed() = 0;
+  public:
+    void SetButtonTexture(SDL_Texture* texture);
+    void CreateButton(float x, float y);
+    void UpdateButtonLocation(float x, float y);
+    void ResetButtonState();
+    bool Pressed();
 };
 
 class PlayButton : public ScreenButton {
   public:
-    PlayButton(float center_x, float center_y);
-    void SetButtonTexture(SDL_Texture* texture);
     void CheckButtonState(Input input);
-    void ResetButtonState();
     void Render(SDL_Renderer* renderer);
-    bool Pressed();
 };
 
 class HomeButton : public ScreenButton {
   private:
     SDL_Texture* button_texture;
   public:
-    HomeButton(float center_x, float center_y);
-    void SetButtonTexture(SDL_Texture* texture);
     void CheckButtonState(Input input);
-    void ResetButtonState();
     void Render(SDL_Renderer* renderer);
-    bool Pressed();
 };
 
 class GameTitle {
@@ -240,31 +230,30 @@ class GameTitle {
     SDL_FRect title_rect;
     double color_shift;
   public:
-    GameTitle(float center_x, float center_y);
+    void CreateTitle(float x, float y);
     void SetTitleTexture(SDL_Texture* texture);
-    void UpdateTitle(double delta_time);
+    void UpdateTitle(float x, float y, double delta_time);
     void Render(SDL_Renderer* renderer);
 };
 
 class Background {
   private:
-    Utils utils;
     BackgroundStar background_stars[BACKGROUND_STAR_AMOUNT];
     SDL_Texture* star_texture;
   public:
-    Background();
+    //Background();
     void SetStarTexture(SDL_Texture* texture);
+    void CreateBackground();
     void UpdateAndRenderBackground(AppState game_state, Renderer game_renderer);
 };
 
 class MainMenu {
-  private:
-    Utils utils;
-    GameTitle title;
   public:
     PlayButton play_button;
-    MainMenu();
+    GameTitle title;
+    //MainMenu();
     void ResetButtons();
+    void CreateMenu();
     void UpdateMenu(AppState game_state, Input input);
     void RenderMenu(SDL_Renderer* renderer);  
 };
@@ -279,23 +268,19 @@ class GameScreen {
 
 class PauseMenu {
   public:
-    Utils utils;
     PlayButton play_button;
     HomeButton home_button;
-    PauseMenu();
+    //PauseMenu();
     void ResetButtons();
-    void UpdateMenu(Input input);
     void RenderMenu(SDL_Renderer* renderer);
 };
 
 class DeathScreen {
   public:
-    Utils utils;
     PlayButton play_button;
     HomeButton home_button;
-    DeathScreen();
+    //DeathScreen();
     void ResetButtons();
-    void UpdateMenu(Input input);
     void RenderMenu(SDL_Renderer* renderer);
 };
 
@@ -303,8 +288,6 @@ class DeathScreen {
 
 class SpaceGame {
   private:
-    Utils utils;
-
     AppState game_state;
     Renderer game_renderer;
     Input input;
@@ -319,6 +302,7 @@ class SpaceGame {
     void HandleSingleButton(LogicalKeyCode key);
     void HandleSingleMouseButton(LogicalKeyCode key);
     void HandleMouseMotionInput();
+    void UpdateScreenButtonsStates();
     void HandleInput();
 
     void HandleMenu();

@@ -1,5 +1,14 @@
 #include "SpaceHeader.hpp"
 
+int Utils::window_width = 1080;
+int Utils::window_height = 720;
+float Utils::grid_scale = 2.0f;
+float Utils::origin_offset_x = 0.0f;
+float Utils::origin_offset_y = 0.0f;
+DisplayData Utils::display_data = {
+  .display_mode = nullptr
+};
+
 float Utils::ClampF(float value, float min, float max) {
   if (value < min) return min;
   if (value > max) return max;
@@ -18,24 +27,18 @@ float Utils::LerpF(float fraction, float min, float max) {
   return min + fraction * (max - min);
 }
 
-void Utils::SetWindowSize(int width, int height) {
-  window_width = width;
-  window_height = height;
-  CalculateOriginOffset();
-}
-
-void Utils::SetGridScale(float scale) {
-  grid_scale = scale;
+void Utils::SetDisplayData() {
+  Utils::display_data.display_mode = SDL_GetCurrentDisplayMode(SDL_GetPrimaryDisplay());
 }
 
 void Utils::CalculateOriginOffset() {
-  origin_offset_x = ((float)window_width * grid_scale) / (2.0 * (float)BASE_UNIT_SIZE_PIXELS);
-  origin_offset_y = ((float)window_height * grid_scale) / (2.0 * (float)BASE_UNIT_SIZE_PIXELS);
+  Utils::origin_offset_x = ((float)window_width * grid_scale) / (2.0 * (float)BASE_UNIT_SIZE_PIXELS);
+  Utils::origin_offset_y = ((float)window_height * grid_scale) / (2.0 * (float)BASE_UNIT_SIZE_PIXELS);
 }
 
 void Utils::ChangeGridScale(float step) {
   float scale_factor = 1.0 + (step * scale_change_sensitivity);
-  grid_scale = ClampF(grid_scale * scale_factor, min_scale, max_scale);
+  Utils::grid_scale = ClampF(grid_scale * scale_factor, min_scale, max_scale);
   CalculateOriginOffset(); //Recalculate the grid origin position to center the frame with
 }
 

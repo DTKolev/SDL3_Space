@@ -24,6 +24,23 @@ void SpaceGame::HandleMouseMotionInput() {
   input.mouse.pos_y = input.input_event.motion.y;
 }
 
+void SpaceGame::UpdateScreenButtonsStates() {
+  switch (game_state.current_state) {
+    case STATE_MENU:
+      main_menu.play_button.CheckButtonState(input);
+      break;
+    case STATE_PAUSE:
+      pause_menu.play_button.CheckButtonState(input);
+      pause_menu.home_button.CheckButtonState(input);
+      break;
+    case STATE_DEATH_SCREEN:
+      death_screen.play_button.CheckButtonState(input);
+      death_screen.home_button.CheckButtonState(input);
+      break;
+    default: break;
+  }
+}
+
 void SpaceGame::HandleInput() {
   ResetButtonStates();
   while (SDL_PollEvent(&input.input_event)) {
@@ -46,12 +63,12 @@ void SpaceGame::HandleInput() {
           case SDLK_PLUS:
           case SDLK_KP_PLUS:
             HandleSingleButton(BUTTON_PLUS);
-            utils.ChangeGridScale(-1.0f);
+            Utils::ChangeGridScale(-1.0f);
             break;
           case SDLK_MINUS:
           case SDLK_KP_MINUS:
             HandleSingleButton(BUTTON_MINUS);
-            utils.ChangeGridScale(1.0f);
+            Utils::ChangeGridScale(1.0f);
             break;
           case SDLK_RETURN:
           case SDLK_RETURN2:
@@ -72,17 +89,19 @@ void SpaceGame::HandleInput() {
             HandleSingleMouseButton(MOUSE_BUTTON_RIGHT);
           default: break;
         }
+        UpdateScreenButtonsStates();
         break;
       case SDL_EVENT_MOUSE_WHEEL: //Handle mouse scroll
-        utils.ChangeGridScale(-input.input_event.wheel.y);
+        Utils::ChangeGridScale(-input.input_event.wheel.y);
         break;
       case SDL_EVENT_MOUSE_MOTION: //Handle mouse motion
         HandleMouseMotionInput();
+        UpdateScreenButtonsStates();
         break;
       case SDL_EVENT_WINDOW_RESIZED:
-        utils.window_width = input.input_event.window.data1;
-        utils.window_height = input.input_event.window.data2;
-        utils.CalculateOriginOffset();
+        Utils::window_width = input.input_event.window.data1;
+        Utils::window_height = input.input_event.window.data2;
+        Utils::CalculateOriginOffset();
       default: break;
     }
   }

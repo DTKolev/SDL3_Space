@@ -1,20 +1,5 @@
 #include "SpaceHeader.hpp"
 
-HomeButton::HomeButton(float center_x, float center_y) {
-  this->button_rect = {
-    center_x - (SCREEN_BUTTON_SIZE / 2.0f),
-    center_y - (SCREEN_BUTTON_SIZE / 2.0f),
-    SCREEN_BUTTON_SIZE,
-    SCREEN_BUTTON_SIZE
-  };
-  this->is_hovered = false;
-  this->is_pressed = false;
-}
-
-void HomeButton::SetButtonTexture(SDL_Texture* texture) {
-  button_texture = texture;
-}
-
 void HomeButton::CheckButtonState(Input input) {
   float roof_slope_const = (input.mouse.pos_y - button_rect.y) * 4.0f / 5.0f;
   bool roof_hovered_y = input.mouse.pos_y >= button_rect.y && input.mouse.pos_y <= button_rect.y + (SCREEN_BUTTON_SIZE * 2.0 / 5.0f);
@@ -35,10 +20,6 @@ void HomeButton::CheckButtonState(Input input) {
   }
 }
 
-void HomeButton::ResetButtonState() {
-  is_pressed = false;
-}
-
 void HomeButton::Render(SDL_Renderer* renderer) {
   if (is_hovered) {
     SDL_SetTextureColorMod(button_texture, 201, 49, 33);
@@ -47,8 +28,4 @@ void HomeButton::Render(SDL_Renderer* renderer) {
     SDL_SetTextureColorMod(button_texture, 255, 255, 255);
   }
   SDL_RenderTexture(renderer, button_texture, NULL, &button_rect);
-}
-
-bool HomeButton::Pressed() {
-  return is_pressed;
 }

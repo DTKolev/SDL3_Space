@@ -1,15 +1,11 @@
 #include "SpaceHeader.hpp"
 
 void SpaceGame::GameInit() {
-  std::cout << "Entry point reached\n";
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error initializing SDL", nullptr);
     SDL_Quit();
     return;
   }
-
-  utils.SetWindowSize(1080, 720);
-  utils.SetGridScale(2.0f);
 
   game_renderer.CreateWindowAndRenderer();
 
@@ -18,13 +14,19 @@ void SpaceGame::GameInit() {
   game_renderer.PreRenderHomeButtonTexture();
   game_renderer.PreRenderTitleTexture();
 
+  main_menu.CreateMenu();
   main_menu.play_button.SetButtonTexture(game_renderer.play_button_texture);
+  main_menu.title.SetTitleTexture(game_renderer.title_texture);
+  
+
   pause_menu.play_button.SetButtonTexture(game_renderer.play_button_texture);
   pause_menu.home_button.SetButtonTexture(game_renderer.home_button_texture);
   death_screen.play_button.SetButtonTexture(game_renderer.play_button_texture);
   death_screen.home_button.SetButtonTexture(game_renderer.home_button_texture);
 
-  utils.CalculateOriginOffset();
+  Utils::CalculateOriginOffset();
+  Utils::SetDisplayData();
+  background.CreateBackground();
 
   game_state.game_running = true;
   game_state.current_state = STATE_MENU;
@@ -35,10 +37,14 @@ void SpaceGame::GameInit() {
 
 void SpaceGame::GameRun() {
   while (game_state.game_running) {
+    
     HandleInput();
+    
     SDL_SetRenderDrawColor(game_renderer.renderer, 0, 0, 0, 255);
     SDL_RenderClear(game_renderer.renderer);
+    
     background.UpdateAndRenderBackground(game_state, game_renderer);
+    
     switch (game_state.current_state) {
       case STATE_MENU:
         HandleMenu();
@@ -52,12 +58,10 @@ void SpaceGame::GameRun() {
         break;
       case STATE_PAUSE:
         HandlePause();
-        pause_menu.UpdateMenu(input);
         pause_menu.RenderMenu(game_renderer.renderer);
         break;
       case STATE_DEATH_SCREEN:
         HandleDeathScreen();
-        death_screen.UpdateMenu(input);
         death_screen.RenderMenu(game_renderer.renderer);
         break;
       case STATE_EXIT:
@@ -65,11 +69,10 @@ void SpaceGame::GameRun() {
         break;
     }
     SDL_RenderPresent(game_renderer.renderer);
-    utils.CalculateDeltaTime(&game_state);
+    Utils::CalculateDeltaTime(&game_state);
   }
 }
 
 void SpaceGame::GameTerminate() {
-  std::cout << "Game exiting\n";
   SDL_Quit();
 }

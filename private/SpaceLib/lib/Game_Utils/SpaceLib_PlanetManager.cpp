@@ -1,9 +1,9 @@
 #include "SpaceHeader.hpp"
-
+/*
 PlanetManager::PlanetManager() {
   this->asteroid_hit_planet = false;
 }
-
+*/
 void PlanetManager::SetStarProperties() {
   planets[0].planet_radius = STAR_RADIUS;
   planets[0].orbit_radius = 0.0;
@@ -16,10 +16,10 @@ void PlanetManager::SetStarProperties() {
 
 void PlanetManager::SetRandomProperties(Planet* planet) {
   //Assign random planet size and orbit
-  planet->orbit_radius = utils.MaxF(SDL_randf() * MAX_ORBIT_RADIUS, MIN_ORBIT_RADIUS);
-  planet->planet_radius = utils.MaxF((SDL_randf() * MAX_PLANET_RADIUS) + (planet->orbit_radius / 30.0), MIN_PLANET_RADIUS);
+  planet->orbit_radius = Utils::MaxF(SDL_randf() * MAX_ORBIT_RADIUS, MIN_ORBIT_RADIUS);
+  planet->planet_radius = Utils::MaxF((SDL_randf() * MAX_PLANET_RADIUS) + (planet->orbit_radius / 30.0), MIN_PLANET_RADIUS);
   planet->phase = SDL_randf();
-  utils.CalculatePlanetOrbitPosition(planet);
+  Utils::CalculatePlanetOrbitPosition(planet);
   
   //Assign random planet color
   int red = (int)SDL_rand(256);
@@ -37,7 +37,7 @@ bool PlanetManager::PlanetIsHovered(Planet planet, Input input) {
     .pixel_x = (int)input.mouse.pos_x,
     .pixel_y = (int)input.mouse.pos_y
   };
-  utils.CalculateGridCoordinates(&mouse_location);
+  Utils::CalculateGridCoordinates(&mouse_location);
   float distance_from_planet_center = SDL_sqrtf(
     SDL_powf(mouse_location.grid_x - planet.planet_center.grid_x, 2) + 
     SDL_powf(mouse_location.grid_y - planet.planet_center.grid_y, 2)
@@ -52,10 +52,10 @@ void PlanetManager::UpdatePlanetOrbits(AppState game_state) {
         float chage_speed_multiplier = planets[i].orbit_radius - MAX_ORBIT_RADIUS;
         planets[i].orbit_radius -= game_state.delta_time * chage_speed_multiplier;
         planets[i].orbit_speed = GRAVITATIONAL_CONSTANT / planets[i].orbit_radius;
-        utils.CalculatePlanetPhase(&planets[i]);
+        Utils::CalculatePlanetPhase(&planets[i]);
       }
       planets[i].phase += game_state.delta_time * planets[i].orbit_speed;
-      utils.CalculatePlanetOrbitPosition(&planets[i]);
+      Utils::CalculatePlanetOrbitPosition(&planets[i]);
     }
   }
 }
@@ -73,7 +73,7 @@ void PlanetManager::ManualPlanetMove(AppState game_state, Input input) {
         .pixel_x = (int)input.mouse.pos_x,
         .pixel_y = (int)input.mouse.pos_y
       };
-      utils.CalculateGridCoordinates(&mouse_location);
+      Utils::CalculateGridCoordinates(&mouse_location);
       planets[i].planet_center.grid_x = mouse_location.grid_x;
       planets[i].planet_center.grid_y = mouse_location.grid_y;
     }
@@ -86,7 +86,7 @@ void PlanetManager::ManualPlanetMove(AppState game_state, Input input) {
         SDL_powf(planets[i].planet_center.grid_y, 2)
       );
       planets[i].orbit_speed = GRAVITATIONAL_CONSTANT / planets[i].orbit_radius;
-      utils.CalculatePlanetPhase(&planets[i]);
+      Utils::CalculatePlanetPhase(&planets[i]);
     }
   }
 }
@@ -96,7 +96,7 @@ void PlanetManager::SpawnAsteroid(AppState game_state) {
   if (!game_state.asteroid_is_active) {
     active_asteroid.asteroid_location.grid_x = planets[random_planet_index].planet_center.grid_x + (SDL_randf() - 0.5f) * 2.0f * ASTEROID_SPAWN_RADIUS_VARIANCE;
     active_asteroid.asteroid_location.grid_y = planets[random_planet_index].planet_center.grid_y + (SDL_randf() - 0.5f) * 2.0f * ASTEROID_SPAWN_RADIUS_VARIANCE;
-    active_asteroid.asteroid_radius = utils.MaxF(SDL_randf() * ASTEROID_MAX_RADIUS, ASTEROID_MIN_RADIUS);
+    active_asteroid.asteroid_radius = Utils::MaxF(SDL_randf() * ASTEROID_MAX_RADIUS, ASTEROID_MIN_RADIUS);
     active_asteroid.indicator_radius = active_asteroid.asteroid_radius * 0.2f;
     active_asteroid.impact_timer = ASTEROID_TIMER_START;
     active_asteroid.asteroid_hit = false;
@@ -111,25 +111,25 @@ void PlanetManager::UpdateAsteroid(AppState game_state) {
     game_state.asteroid_is_active = false;
     return;
   }
-  float indicator_fraction = utils.InvLerpF(active_asteroid.impact_timer, 0.0f, ASTEROID_TIMER_START);
-  active_asteroid.indicator_radius = utils.LerpF(1.0f - indicator_fraction, active_asteroid.asteroid_radius * 0.2f, active_asteroid.asteroid_radius);
+  float indicator_fraction = Utils::InvLerpF(active_asteroid.impact_timer, 0.0f, ASTEROID_TIMER_START);
+  active_asteroid.indicator_radius = Utils::LerpF(1.0f - indicator_fraction, active_asteroid.asteroid_radius * 0.2f, active_asteroid.asteroid_radius);
 }
 
 void PlanetManager::RenderAsteroid(SDL_Renderer* renderer) {
-  utils.CalculatePixelCoordinates(&active_asteroid.asteroid_location);
+  Utils::CalculatePixelCoordinates(&active_asteroid.asteroid_location);
   SDL_FRect asteroid_rect = {
-    active_asteroid.asteroid_location.pixel_x - (active_asteroid.asteroid_radius * BASE_UNIT_SIZE_PIXELS / utils.grid_scale),
-    active_asteroid.asteroid_location.pixel_y - (active_asteroid.asteroid_radius * BASE_UNIT_SIZE_PIXELS / utils.grid_scale),
-    active_asteroid.asteroid_radius * 2.0f * BASE_UNIT_SIZE_PIXELS / utils.grid_scale,
-    active_asteroid.asteroid_radius * 2.0f * BASE_UNIT_SIZE_PIXELS / utils.grid_scale
+    active_asteroid.asteroid_location.pixel_x - (active_asteroid.asteroid_radius * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale),
+    active_asteroid.asteroid_location.pixel_y - (active_asteroid.asteroid_radius * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale),
+    active_asteroid.asteroid_radius * 2.0f * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale,
+    active_asteroid.asteroid_radius * 2.0f * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale
   };
   SDL_SetTextureColorMod(planets[0].planet_texture, 119, 7, 21); //Reuse the defaut circular texture for the asteroid
   SDL_RenderTexture(renderer, planets[0].planet_texture, NULL, &asteroid_rect);
   SDL_FRect indicator_rect = {
-    active_asteroid.asteroid_location.pixel_x - (active_asteroid.indicator_radius * BASE_UNIT_SIZE_PIXELS / utils.grid_scale),
-    active_asteroid.asteroid_location.pixel_y - (active_asteroid.indicator_radius * BASE_UNIT_SIZE_PIXELS / utils.grid_scale),
-    active_asteroid.indicator_radius * 2.0f * BASE_UNIT_SIZE_PIXELS / utils.grid_scale,
-    active_asteroid.indicator_radius * 2.0f * BASE_UNIT_SIZE_PIXELS / utils.grid_scale
+    active_asteroid.asteroid_location.pixel_x - (active_asteroid.indicator_radius * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale),
+    active_asteroid.asteroid_location.pixel_y - (active_asteroid.indicator_radius * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale),
+    active_asteroid.indicator_radius * 2.0f * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale,
+    active_asteroid.indicator_radius * 2.0f * BASE_UNIT_SIZE_PIXELS / Utils::grid_scale
   };
   SDL_SetTextureColorMod(planets[0].planet_texture, 197, 7, 21);
   SDL_RenderTexture(renderer, planets[0].planet_texture, NULL, &indicator_rect);
@@ -162,15 +162,16 @@ void PlanetManager::ResetGame(AppState game_state, Renderer game_renderer) {
     SetRandomProperties(&planets[i]);
     game_renderer.PreRenderPlanetTexture(&planets[i]);
   }
-  utils.grid_scale = 2.0f;
-  utils.CalculateOriginOffset();
+  Utils::grid_scale = 2.0f;
+  Utils::CalculateOriginOffset();
   game_state.planet_being_moved = false;
   game_state.asteroid_is_active = false;
   asteroid_hit_planet = false;
 }
-
+/*
 PlanetManager::~PlanetManager() {
   for (int i = 0; i < PLANET_AMOUNT; i++) {
     SDL_DestroyTexture(planets[i].planet_texture);
   }
 }
+*/
