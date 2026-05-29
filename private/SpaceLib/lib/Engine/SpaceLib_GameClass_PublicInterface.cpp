@@ -18,9 +18,11 @@ void SpaceGame::GameInit() {
   main_menu.play_button.SetButtonTexture(game_renderer.play_button_texture);
   main_menu.title.SetTitleTexture(game_renderer.title_texture);
   
-
+  pause_menu.CreateMenu();
   pause_menu.play_button.SetButtonTexture(game_renderer.play_button_texture);
   pause_menu.home_button.SetButtonTexture(game_renderer.home_button_texture);
+
+  death_screen.CreateMenu();
   death_screen.play_button.SetButtonTexture(game_renderer.play_button_texture);
   death_screen.home_button.SetButtonTexture(game_renderer.home_button_texture);
 
@@ -28,6 +30,7 @@ void SpaceGame::GameInit() {
   Utils::SetDisplayData();
   background.CreateBackground();
 
+  game_state.asteroid_is_active = false;
   game_state.game_running = true;
   game_state.current_state = STATE_MENU;
   game_state.performance_frequency = SDL_GetPerformanceFrequency();
@@ -48,20 +51,22 @@ void SpaceGame::GameRun() {
     switch (game_state.current_state) {
       case STATE_MENU:
         HandleMenu();
-        main_menu.UpdateMenu(game_state, input);
+        main_menu.UpdateMenu(game_state);
         main_menu.RenderMenu(game_renderer.renderer);
         break;
       case STATE_PLAYING:
         HandlePlaying();
-        game_screen.UpdateGameScreen(game_state, input);
+        game_screen.UpdateGameScreen(&game_state, input);
         game_screen.RenderGameScreen(game_renderer);
         break;
       case STATE_PAUSE:
         HandlePause();
+        pause_menu.UpdateMenu();
         pause_menu.RenderMenu(game_renderer.renderer);
         break;
       case STATE_DEATH_SCREEN:
         HandleDeathScreen();
+        death_screen.UpdateMenu();
         death_screen.RenderMenu(game_renderer.renderer);
         break;
       case STATE_EXIT:

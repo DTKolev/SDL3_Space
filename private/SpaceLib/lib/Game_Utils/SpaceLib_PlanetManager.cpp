@@ -91,24 +91,24 @@ void PlanetManager::ManualPlanetMove(AppState game_state, Input input) {
   }
 }
 
-void PlanetManager::SpawnAsteroid(AppState game_state) {
+void PlanetManager::SpawnAsteroid(AppState* game_state) {
   int random_planet_index = (int)SDL_rand(PLANET_AMOUNT - 1) + 1; //Randomly select a planet to spawn the asteroid around (excluding the star at index 0)
-  if (!game_state.asteroid_is_active) {
+  if (!game_state->asteroid_is_active) {
     active_asteroid.asteroid_location.grid_x = planets[random_planet_index].planet_center.grid_x + (SDL_randf() - 0.5f) * 2.0f * ASTEROID_SPAWN_RADIUS_VARIANCE;
     active_asteroid.asteroid_location.grid_y = planets[random_planet_index].planet_center.grid_y + (SDL_randf() - 0.5f) * 2.0f * ASTEROID_SPAWN_RADIUS_VARIANCE;
     active_asteroid.asteroid_radius = Utils::MaxF(SDL_randf() * ASTEROID_MAX_RADIUS, ASTEROID_MIN_RADIUS);
     active_asteroid.indicator_radius = active_asteroid.asteroid_radius * 0.2f;
     active_asteroid.impact_timer = ASTEROID_TIMER_START;
     active_asteroid.asteroid_hit = false;
-    game_state.asteroid_is_active = true;
+    game_state->asteroid_is_active = true;
   }
 }
 
-void PlanetManager::UpdateAsteroid(AppState game_state) {
-  active_asteroid.impact_timer -= game_state.delta_time;
+void PlanetManager::UpdateAsteroid(AppState* game_state) {
+  active_asteroid.impact_timer -= game_state->delta_time;
   if (active_asteroid.impact_timer <= 0.0f) {
     active_asteroid.asteroid_hit = true;
-    game_state.asteroid_is_active = false;
+    game_state->asteroid_is_active = false;
     return;
   }
   float indicator_fraction = Utils::InvLerpF(active_asteroid.impact_timer, 0.0f, ASTEROID_TIMER_START);
@@ -155,7 +155,7 @@ void PlanetManager::CheckAsteroidCollision() {
   }
 }
 
-void PlanetManager::ResetGame(AppState game_state, Renderer game_renderer) {
+void PlanetManager::ResetGame(AppState* game_state, Renderer game_renderer) {
   SetStarProperties();
   game_renderer.PreRenderPlanetTexture(&planets[0]);
   for (int i = 1; i < PLANET_AMOUNT; i++) {
@@ -164,8 +164,8 @@ void PlanetManager::ResetGame(AppState game_state, Renderer game_renderer) {
   }
   Utils::grid_scale = 2.0f;
   Utils::CalculateOriginOffset();
-  game_state.planet_being_moved = false;
-  game_state.asteroid_is_active = false;
+  game_state->planet_being_moved = false;
+  game_state->asteroid_is_active = false;
   asteroid_hit_planet = false;
 }
 /*

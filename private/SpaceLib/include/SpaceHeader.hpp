@@ -184,14 +184,14 @@ class PlanetManager {
   public:
     //PlanetManager();
     bool asteroid_hit_planet;
-    void SpawnAsteroid(AppState game_state);
-    void UpdateAsteroid(AppState game_state);
+    void SpawnAsteroid(AppState* game_state);
+    void UpdateAsteroid(AppState* game_state);
     void UpdatePlanetOrbits(AppState game_state);
     void ManualPlanetMove(AppState game_state, Input input);
     void CheckAsteroidCollision();
     void RenderAsteroid(SDL_Renderer* renderer);
     void RenderPlanets(Renderer game_renderer); 
-    void ResetGame(AppState game_state,Renderer game_renderer);
+    void ResetGame(AppState* game_state,Renderer game_renderer);
     //~PlanetManager();
 };
 
@@ -217,8 +217,6 @@ class PlayButton : public ScreenButton {
 };
 
 class HomeButton : public ScreenButton {
-  private:
-    SDL_Texture* button_texture;
   public:
     void CheckButtonState(Input input);
     void Render(SDL_Renderer* renderer);
@@ -254,15 +252,15 @@ class MainMenu {
     //MainMenu();
     void ResetButtons();
     void CreateMenu();
-    void UpdateMenu(AppState game_state, Input input);
+    void UpdateMenu(AppState game_state);
     void RenderMenu(SDL_Renderer* renderer);  
 };
 
 class GameScreen {
-  private:
-    PlanetManager planet_manager;
   public:
-    void UpdateGameScreen(AppState game_state, Input input);
+    PlanetManager planet_manager;
+    void CreateGameScreen(AppState* game_state, Renderer game_renderer);
+    void UpdateGameScreen(AppState* game_state, Input input);
     void RenderGameScreen(Renderer game_renderer);
 };
 
@@ -272,6 +270,8 @@ class PauseMenu {
     HomeButton home_button;
     //PauseMenu();
     void ResetButtons();
+    void CreateMenu();
+    void UpdateMenu();
     void RenderMenu(SDL_Renderer* renderer);
 };
 
@@ -280,7 +280,9 @@ class DeathScreen {
     PlayButton play_button;
     HomeButton home_button;
     //DeathScreen();
+    void CreateMenu();
     void ResetButtons();
+    void UpdateMenu();
     void RenderMenu(SDL_Renderer* renderer);
 };
 

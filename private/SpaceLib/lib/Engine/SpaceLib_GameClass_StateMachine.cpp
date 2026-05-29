@@ -1,12 +1,16 @@
 #include "SpaceHeader.hpp"
 
 void SpaceGame::HandleMenu() {
-  if (ButtonReleased(BUTTON_RETURN) || main_menu.play_button.Pressed()) game_state.current_state = STATE_PLAYING;
+  if (ButtonReleased(BUTTON_RETURN) || main_menu.play_button.Pressed()) {
+    game_state.current_state = STATE_PLAYING;
+    game_screen.CreateGameScreen(&game_state, game_renderer);
+  }
   if (ButtonReleased(BUTTON_ESCAPE)) game_state.current_state = STATE_EXIT;
 }
 
 void SpaceGame::HandlePlaying() {
   if (ButtonReleased(BUTTON_Q) || ButtonReleased(BUTTON_P) || ButtonReleased(BUTTON_ESCAPE)) game_state.current_state = STATE_PAUSE;
+  if (game_screen.planet_manager.asteroid_hit_planet) game_state.current_state = STATE_DEATH_SCREEN;
 }
 
 void SpaceGame::HandlePause() {
@@ -15,6 +19,9 @@ void SpaceGame::HandlePause() {
 }
 
 void SpaceGame::HandleDeathScreen() {
-  if (ButtonReleased(BUTTON_RETURN) || death_screen.play_button.Pressed()) game_state.current_state = STATE_PLAYING;
+  if (ButtonReleased(BUTTON_RETURN) || death_screen.play_button.Pressed()) { 
+    game_screen.CreateGameScreen(&game_state, game_renderer);
+    game_state.current_state = STATE_PLAYING;
+  }
   if (ButtonReleased(BUTTON_ESCAPE) || death_screen.home_button.Pressed()) game_state.current_state = STATE_MENU;
 }

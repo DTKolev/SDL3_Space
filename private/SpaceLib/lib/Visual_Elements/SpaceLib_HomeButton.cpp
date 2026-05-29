@@ -1,7 +1,7 @@
 #include "SpaceHeader.hpp"
 
 void HomeButton::CheckButtonState(Input input) {
-  float roof_slope_const = (input.mouse.pos_y - button_rect.y) * 4.0f / 5.0f;
+  float roof_slope_const = (-(input.mouse.pos_y - button_rect.y) * 5.0f / 4.0f) + (SCREEN_BUTTON_SIZE / 2.0f);
   bool roof_hovered_y = input.mouse.pos_y >= button_rect.y && input.mouse.pos_y <= button_rect.y + (SCREEN_BUTTON_SIZE * 2.0 / 5.0f);
   bool roof_hovered_x_01 = input.mouse.pos_x >= button_rect.x + roof_slope_const;
   bool roof_hovered_x_02 = input.mouse.pos_x <= button_rect.x + SCREEN_BUTTON_SIZE - roof_slope_const;

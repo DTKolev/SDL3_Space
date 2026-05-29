@@ -34,5 +34,5 @@ if (WIN32)
     $<TARGET_FILE:SDL3::SDL3>
     $<TARGET_FILE_DIR:SpaceGame>
   )
-  target_link_options(SpaceGame PRIVATE "-mwindows")
+  #target_link_options(SpaceGame PRIVATE "-mwindows")
 endif()
