@@ -9,13 +9,22 @@ void SpaceGame::HandleMenu() {
 }
 
 void SpaceGame::HandlePlaying() {
-  if (ButtonReleased(BUTTON_Q) || ButtonReleased(BUTTON_P) || ButtonReleased(BUTTON_ESCAPE)) game_state.current_state = STATE_PAUSE;
-  if (game_screen.planet_manager.asteroid_hit_planet) game_state.current_state = STATE_DEATH_SCREEN;
+  if (ButtonReleased(BUTTON_Q) || ButtonReleased(BUTTON_P) || ButtonReleased(BUTTON_ESCAPE)) {
+    game_state.current_state = STATE_PAUSE;
+    UpdateScreenButtonsStates();
+  }
+  if (game_screen.planet_manager.asteroid_hit_planet) {
+    game_state.current_state = STATE_DEATH_SCREEN;
+    UpdateScreenButtonsStates();
+  }
 }
 
 void SpaceGame::HandlePause() {
   if (ButtonReleased(BUTTON_RETURN) || pause_menu.play_button.Pressed()) game_state.current_state = STATE_PLAYING;
-  if (ButtonReleased(BUTTON_ESCAPE) || pause_menu.home_button.Pressed()) game_state.current_state = STATE_MENU;
+  if (ButtonReleased(BUTTON_ESCAPE) || pause_menu.home_button.Pressed()) {
+    game_state.current_state = STATE_MENU;
+    UpdateScreenButtonsStates();
+  }
 }
 
 void SpaceGame::HandleDeathScreen() {
