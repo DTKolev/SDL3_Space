@@ -1,4 +1,4 @@
-#include "SpaceHeader.hpp"
+#include "SpaceGame.hpp"
 
 int main() {
   SpaceGame space_game;
