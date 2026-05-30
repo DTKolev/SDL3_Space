@@ -1,4 +1,6 @@
-#include "SpaceHeader.hpp"
+#include <SDL3/SDL.h>
+
+#include "SpaceGame_VisualElements.hpp"
 
 void GameTitle::CreateTitle(float pos_x, float pos_y, float width, float height) {
   this->title_rect = {

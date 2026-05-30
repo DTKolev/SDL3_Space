@@ -1,4 +1,43 @@
-#include "SpaceHeader.hpp"
+#include <SDL3/SDL.h>
+
+#include "SpaceGame_PlanetManager.hpp"
+#include "SpaceGame_Utils.hpp"
+
+#ifndef MIN_PLANET_RADIUS
+  #define MIN_PLANET_RADIUS 6.0f
+#endif
+ 
+#ifndef MAX_PLANET_RADIUS
+  #define MAX_PLANET_RADIUS 10.0f
+#endif
+
+#ifndef MIN_ORBIT_RADIUS
+  #define MIN_ORBIT_RADIUS 50.0f
+#endif
+
+#ifndef MAX_ORBIT_RADIUS
+  #define MAX_ORBIT_RADIUS 350.0f
+#endif
+
+#ifndef ORBIT_RADIUS_CHANGE_SPEED
+  #define ORBIT_RADIUS_CHANGE_SPEED 50.0f
+#endif
+
+#ifndef ASTEROID_SPAWN_RADIUS_VARIANCE
+  #define ASTEROID_SPAWN_RADIUS_VARIANCE 100.0f
+#endif
+
+#ifndef ASTEROID_MAX_RADIUS
+  #define ASTEROID_MAX_RADIUS 200.0f
+#endif
+
+#ifndef ASTEROID_MIN_RADIUS
+  #define ASTEROID_MIN_RADIUS 100.0f
+#endif
+
+#ifndef ASTEROID_TIMER_START
+  #define ASTEROID_TIMER_START 5.0f
+#endif
 
 void PlanetManager::SetStarProperties() {
   planets[0].planet_radius = STAR_RADIUS;

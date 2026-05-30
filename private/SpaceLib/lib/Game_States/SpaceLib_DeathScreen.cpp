@@ -1,4 +1,5 @@
-#include "SpaceHeader.hpp"
+#include "SpaceGame_GameScreens.hpp"
+#include "SpaceGame_Utils.hpp"
 
 void DeathScreen::CreateMenu() {
   death_title.CreateTitle(Utils::window_width / 2.0f, Utils::window_height / 4.0f, DEATH_TITLE_WIDTH, DEATH_TITLE_HEIGHT);

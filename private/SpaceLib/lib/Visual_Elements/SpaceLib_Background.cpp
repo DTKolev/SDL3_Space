@@ -1,4 +1,23 @@
-#include "SpaceHeader.hpp"
+#include <SDL3/SDL.h>
+
+#include "SpaceGame_VisualElements.hpp"
+#include "SpaceGame_Utils.hpp"
+
+#ifndef BACKGROUND_STAR_AMOUNT
+  #define BACKGROUND_STAR_AMOUNT 1000
+#endif
+
+#ifndef MIN_BACKGROUND_STAR_SPEED
+  #define MIN_BACKGROUND_STAR_SPEED 15.0f
+#endif
+
+#ifndef MAX_BACKGROUND_STAR_SPEED
+  #define MAX_BACKGROUND_STAR_SPEED 30.0f
+#endif
+
+#ifndef MIN_BACKGROUND_STAR_BRIGHTNESS
+  #define MIN_BACKGROUND_STAR_BRIGHTNESS 0.2f
+#endif
 
 void Background::SetStarTexture(SDL_Texture* texture) {
   star_texture = texture;

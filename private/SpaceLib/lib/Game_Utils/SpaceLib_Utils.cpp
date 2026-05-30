@@ -1,4 +1,7 @@
-#include "SpaceHeader.hpp"
+#include <SDL3/SDL.h>
+
+#include "SpaceGame_Utils.hpp"
+#include "SpaceGame_Macros.hpp"
 
 int Utils::window_width = 1920;
 int Utils::window_height = 1080;

@@ -1,4 +1,8 @@
-#include "SpaceHeader.hpp"
+#include <SDL3/SDL.h>
+
+#include "SpaceGame_Macros.hpp"
+#include "SpaceGame_Buttons.hpp"
+#include "SpaceGame_DataStructures.hpp"
 
 void HomeButton::CheckButtonState(Input input) {
   float roof_slope_const = (-(input.mouse.pos_y - button_rect.y) * 5.0f / 4.0f) + (SCREEN_BUTTON_SIZE / 2.0f);

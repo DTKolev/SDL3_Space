@@ -1,4 +1,5 @@
-#include "SpaceHeader.hpp"
+#include "SpaceGame_GameScreens.hpp"
+#include "SpaceGame_Utils.hpp"
 
 void MainMenu::CreateMenu() {
   play_button.CreateButton(Utils::window_width / 2.0f, (Utils::window_height / 4.0f) * 3.0f);

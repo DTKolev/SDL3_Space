@@ -1,4 +1,5 @@
-#include "SpaceHeader.hpp"
+#include "SpaceGame_Macros.hpp"
+#include "SpaceGame_Buttons.hpp"
 
 void ScreenButton::SetButtonTexture(SDL_Texture* texture) {
   this->button_texture = texture;

@@ -1,10 +1,9 @@
-#include "SpaceHeader.hpp"
-/*
-Renderer::Renderer() {
-  window = nullptr;
-  renderer = nullptr;
-}
-*/
+#include <SDL3/SDL.h>
+#include "SpaceGame_DataStructures.hpp"
+#include "SpaceGame_Renderer.hpp"
+#include "SpaceGame_Utils.hpp"
+#include "SpaceGame_Macros.hpp"
+
 void Renderer::PrepareTextureForPreRendering(SDL_Texture** texture, int width, int height) {
   *texture = nullptr;
   *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);

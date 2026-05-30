@@ -1,4 +1,7 @@
-#include "SpaceHeader.hpp"
+#include <SDL3/SDL.h>
+
+#include "SpaceGame_Engine.hpp"
+#include "SpaceGame_Utils.hpp"
 
 void SpaceGame::GameInit() {
   if (!SDL_Init(SDL_INIT_VIDEO)) {

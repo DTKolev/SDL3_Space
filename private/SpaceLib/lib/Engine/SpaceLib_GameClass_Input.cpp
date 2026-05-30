@@ -1,4 +1,5 @@
-#include "SpaceHeader.hpp"
+#include "SpaceGame_Engine.hpp"
+#include "SpaceGame_Utils.hpp"
 
 void SpaceGame::ResetButtonStates() {
   for (int i = 0; i < button_amount; i++) {

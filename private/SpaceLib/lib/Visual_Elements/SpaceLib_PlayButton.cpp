@@ -1,4 +1,8 @@
-#include "SpaceHeader.hpp"
+#include <SDL3/SDL.h>
+
+#include "SpaceGame_Macros.hpp"
+#include "SpaceGame_Buttons.hpp"
+#include "SpaceGame_DataStructures.hpp"
 
 void PlayButton::CheckButtonState(Input input) {
   float slope_const = (input.mouse.pos_x - button_rect.x) / 2.0f;

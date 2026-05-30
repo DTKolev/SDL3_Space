@@ -1,4 +1,5 @@
-#include "SpaceHeader.hpp"
+#include "SpaceGame_GameScreens.hpp"
+#include "SpaceGame_Utils.hpp"
 
 void GameScreen::CreateGameScreen(AppState* game_state, Renderer game_renderer) {
   planet_manager.ResetGame(game_state, game_renderer);

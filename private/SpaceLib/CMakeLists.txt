@@ -19,8 +19,6 @@ add_library(SpaceLib STATIC
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_PlayButton.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_ScreenButton_Parent.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_Title_Parent.cpp
-  #Header files
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/SpaceHeader.hpp
 )
 
 target_include_directories(SpaceLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
