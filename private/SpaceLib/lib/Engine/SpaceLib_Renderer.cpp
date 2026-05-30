@@ -20,7 +20,7 @@ void Renderer::PrepareTextureForPreRendering(SDL_Texture** texture, int width, i
 
 void Renderer::CreateWindowAndRenderer() {
   //Create widnow and renderer
-  window = SDL_CreateWindow("Space Game  Window", Utils::window_width, Utils::window_height, SDL_WINDOW_RESIZABLE);
+  window = SDL_CreateWindow("Space Game  Window", Utils::window_width, Utils::window_height, SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
   renderer = SDL_CreateRenderer(window, NULL);
   if (this->window == nullptr || renderer == nullptr) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Error", "Error creating window or renderer", window);

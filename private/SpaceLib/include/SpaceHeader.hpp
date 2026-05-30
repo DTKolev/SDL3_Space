@@ -31,8 +31,8 @@
 #define DEATH_TITLE_HEIGHT DEATH_TITLE_WIDTH * 27.0f / 129.0f
 
 #define ASTEROID_SPAWN_RADIUS_VARIANCE 100.0f
-#define ASTEROID_MAX_RADIUS 150.0f
-#define ASTEROID_MIN_RADIUS 50.0f
+#define ASTEROID_MAX_RADIUS 200.0f
+#define ASTEROID_MIN_RADIUS 100.0f
 #define ASTEROID_TIMER_START 5.0f
 
 #define ButtonPressed(key) (input.input_keys[key].is_down && input.input_keys[key].has_changed)

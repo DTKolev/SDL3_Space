@@ -1,9 +1,5 @@
 #include "SpaceHeader.hpp"
-/*
-PlanetManager::PlanetManager() {
-  this->asteroid_hit_planet = false;
-}
-*/
+
 void PlanetManager::SetStarProperties() {
   planets[0].planet_radius = STAR_RADIUS;
   planets[0].orbit_radius = 0.0;

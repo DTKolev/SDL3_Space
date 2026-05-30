@@ -92,7 +92,7 @@ void SpaceGame::HandleInput() {
         UpdateScreenButtonsStates();
         break;
       case SDL_EVENT_MOUSE_WHEEL: //Handle mouse scroll
-        Utils::ChangeGridScale(-input.input_event.wheel.y);
+         if (game_state.current_state == STATE_PLAYING) Utils::ChangeGridScale(-input.input_event.wheel.y);
         break;
       case SDL_EVENT_MOUSE_MOTION: //Handle mouse motion
         HandleMouseMotionInput();
