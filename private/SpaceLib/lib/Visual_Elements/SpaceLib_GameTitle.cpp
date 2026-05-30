@@ -1,22 +1,16 @@
 #include "SpaceHeader.hpp"
 
-void GameTitle::CreateTitle(float x, float y) {
+void GameTitle::CreateTitle(float pos_x, float pos_y, float width, float height) {
   this->title_rect = {
-    x - (TITLE_WIDTH / 2.0f),
-    y - (TITLE_HEIGHT / 2.0f),
-    TITLE_WIDTH,
-    TITLE_HEIGHT
+    .x = pos_x - (width / 2.0f),
+    .y = pos_y - (height / 2.0f),
+    .w = width,
+    .h = height
   };
-  this->color_shift = 0.0f;
+  this->color_shift = 0.0;
 }
 
-void GameTitle::SetTitleTexture(SDL_Texture* texture) {
-  title_texture = texture;
-}
-
-void GameTitle::UpdateTitle(float x, float y, double delta_time) {
-  title_rect.x = x - (TITLE_WIDTH / 2.0f);
-  title_rect.y = y - (TITLE_HEIGHT / 2.0f);
+void GameTitle::UpdateTitleColor(double delta_time) {
   color_shift += delta_time;
 }
 

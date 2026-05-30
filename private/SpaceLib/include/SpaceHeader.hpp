@@ -25,6 +25,10 @@
 #define SCREEN_BUTTON_SIZE 180.0f
 #define TITLE_WIDTH 580.0f
 #define TITLE_HEIGHT TITLE_WIDTH * 57.0f / 87.0f
+#define PAUSE_TITLE_WIDTH 580.0f
+#define PAUSE_TITLE_HEIGHT PAUSE_TITLE_WIDTH * 27.0f / 87.0f
+#define DEATH_TITLE_WIDTH 860.0f
+#define DEATH_TITLE_HEIGHT DEATH_TITLE_WIDTH * 27.0f / 129.0f
 
 #define ASTEROID_SPAWN_RADIUS_VARIANCE 100.0f
 #define ASTEROID_MAX_RADIUS 150.0f
@@ -162,6 +166,8 @@ class Renderer {
     SDL_Texture* play_button_texture;
     SDL_Texture* home_button_texture;
     SDL_Texture* title_texture;
+    SDL_Texture* pause_texture;
+    SDL_Texture* death_texture;
 
     //Renderer();
     void CreateWindowAndRenderer();
@@ -171,7 +177,8 @@ class Renderer {
     void PreRenderPlayButtonTexture();
     void PreRenderHomeButtonTexture();
     void PreRenderTitleTexture();
-    //~Renderer();
+    void PreRenderPauseTexture();
+    void PreRenderDeathTexture();
 };
 
 class PlanetManager {
@@ -187,12 +194,12 @@ class PlanetManager {
     void SpawnAsteroid(AppState* game_state);
     void UpdateAsteroid(AppState* game_state);
     void UpdatePlanetOrbits(AppState game_state);
-    void ManualPlanetMove(AppState game_state, Input input);
+    void ManualPlanetMove(AppState* game_state, Input input);
     void CheckAsteroidCollision();
     void RenderAsteroid(SDL_Renderer* renderer);
     void RenderPlanets(Renderer game_renderer); 
     void ResetGame(AppState* game_state,Renderer game_renderer);
-    //~PlanetManager();
+    void DestroyPlanetTextures();
 };
 
 class ScreenButton {
@@ -222,15 +229,23 @@ class HomeButton : public ScreenButton {
     void Render(SDL_Renderer* renderer);
 };
 
-class GameTitle {
-  private:
+class Title {
+  protected:
     SDL_Texture* title_texture;
     SDL_FRect title_rect;
+  public:
+    void CreateTitle(float pos_x, float pos_y, float width, float height);
+    void SetTitleTexture(SDL_Texture* texture);
+    void UpdateTitleLocation(float pos_x, float pos_y);
+    void RenderTitle(SDL_Renderer* renderer);
+};
+
+class GameTitle : public Title {
+  private:
     double color_shift;
   public:
-    void CreateTitle(float x, float y);
-    void SetTitleTexture(SDL_Texture* texture);
-    void UpdateTitle(float x, float y, double delta_time);
+    void CreateTitle(float pos_x, float pos_y, float width, float height);
+    void UpdateTitleColor(double delta_time);
     void Render(SDL_Renderer* renderer);
 };
 
@@ -266,6 +281,7 @@ class GameScreen {
 
 class PauseMenu {
   public:
+    Title pause_title;
     PlayButton play_button;
     HomeButton home_button;
     //PauseMenu();
@@ -277,6 +293,7 @@ class PauseMenu {
 
 class DeathScreen {
   public:
+    Title death_title;
     PlayButton play_button;
     HomeButton home_button;
     //DeathScreen();

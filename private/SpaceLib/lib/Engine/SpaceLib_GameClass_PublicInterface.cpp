@@ -13,16 +13,20 @@ void SpaceGame::GameInit() {
   game_renderer.PreRenderPlayButtonTexture();
   game_renderer.PreRenderHomeButtonTexture();
   game_renderer.PreRenderTitleTexture();
+  game_renderer.PreRenderPauseTexture();
+  game_renderer.PreRenderDeathTexture();
 
   main_menu.CreateMenu();
   main_menu.play_button.SetButtonTexture(game_renderer.play_button_texture);
   main_menu.title.SetTitleTexture(game_renderer.title_texture);
   
   pause_menu.CreateMenu();
+  pause_menu.pause_title.SetTitleTexture(game_renderer.pause_texture);
   pause_menu.play_button.SetButtonTexture(game_renderer.play_button_texture);
   pause_menu.home_button.SetButtonTexture(game_renderer.home_button_texture);
 
   death_screen.CreateMenu();
+  death_screen.death_title.SetTitleTexture(game_renderer.death_texture);
   death_screen.play_button.SetButtonTexture(game_renderer.play_button_texture);
   death_screen.home_button.SetButtonTexture(game_renderer.home_button_texture);
 
@@ -79,5 +83,12 @@ void SpaceGame::GameRun() {
 }
 
 void SpaceGame::GameTerminate() {
+  game_screen.planet_manager.DestroyPlanetTextures();
+  SDL_DestroyTexture(game_renderer.default_star_texture);
+  SDL_DestroyTexture(game_renderer.play_button_texture);
+  SDL_DestroyTexture(game_renderer.home_button_texture);
+  SDL_DestroyTexture(game_renderer.title_texture);
+  SDL_DestroyRenderer(game_renderer.renderer);
+  SDL_DestroyWindow(game_renderer.window);
   SDL_Quit();
 }

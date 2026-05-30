@@ -237,13 +237,121 @@ void Renderer::PreRenderTitleTexture() {
 
   SDL_SetRenderTarget(renderer, old_render_target);
 }
-/*
-Renderer::~Renderer() {
-  SDL_DestroyTexture(default_star_texture);
-  SDL_DestroyTexture(play_button_texture);
-  SDL_DestroyTexture(home_button_texture);
-  SDL_DestroyTexture(title_texture);
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
+
+void Renderer::PreRenderPauseTexture() {
+  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
+  PrepareTextureForPreRendering(&pause_texture, 87, 27);
+  SDL_SetTextureScaleMode(pause_texture, SDL_SCALEMODE_NEAREST);
+
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+  //Build the letter "P"
+  SDL_FRect p_rects[4] = {
+    {0.0f, 0.0f, 15.0f, 3.0f},
+    {0.0f, 0.0f, 3.0f, 27.0f},
+    {12.0f, 0.0f, 3.0f, 15.0f},
+    {0.0f, 12.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "A"
+  SDL_FRect a_rects [4] = {
+    {18.0f, 0.0f, 15.0f, 3.0f},
+    {18.0f, 0.0f, 3.0f, 27.0f},
+    {30.0f, 0.0f, 3.0f, 27.0f},
+    {18.0f, 12.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "U"
+  SDL_FRect u_rects[3] = {
+    {36.0f, 0.0f, 3.0f, 27.0f},
+    {36.0f, 24.0f, 15.0f, 3.0f},
+    {48.0f, 0.0f, 3.0f, 27.0f}
+  };
+  //Build the letter "S"
+  SDL_FRect s_rects[5] = {
+    {54.0f, 0.0f, 15.0f, 3.0f},
+    {54.0, 0.0f, 3.0f, 15.0f},
+    {54.0f, 12.0f, 15.0f, 3.0f},
+    {66.0f, 12.0f, 3.0f, 15.0f},
+    {54.0f, 24.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "E"
+  SDL_FRect e_rects[4] = {
+    {72.0f, 0.0f, 15.0f, 3.0f},
+    {72.0f, 0.0f, 3.0f, 27.0f},
+    {72.0f, 12.0f, 12.0f, 3.0f},
+    72.0f, 24.0f, 15.0f, 3.0f
+  };
+
+  SDL_RenderFillRects(renderer, p_rects, 4);
+  SDL_RenderFillRects(renderer, a_rects, 4);
+  SDL_RenderFillRects(renderer, u_rects, 3);
+  SDL_RenderFillRects(renderer, s_rects, 5);
+  SDL_RenderFillRects(renderer, e_rects, 4);
+
+  SDL_SetRenderTarget(renderer, old_render_target);
 }
-*/
+
+void Renderer::PreRenderDeathTexture() {
+  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
+  PrepareTextureForPreRendering(&death_texture, 129, 27);
+  SDL_SetTextureScaleMode(death_texture, SDL_SCALEMODE_NEAREST);
+
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+  //Build the letter "Y"
+  SDL_FRect y_rects[4] = {
+    {0.0f, 0.0f, 3.0f, 15.0f},
+    {12.0f, 0.0f, 3.0f, 15.0f},
+    {0.0f, 12.0f, 15.0f, 3.0f},
+    {6.0f, 12.0f, 3.0f, 15.0f}
+  };
+  //Build the letter "O1"
+  SDL_FRect o1_rects[4] = {
+    {18.0f, 0.0f, 15.0f, 3.0f},
+    {18.0f, 0.0f, 3.0f, 27.0f},
+    {30.0f, 0.0f, 3.0f, 27.0f},
+    {18.0f, 24.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "U"
+  SDL_FRect u_rects[3] = {
+    {36.0f, 0.0f, 3.0f, 27.0f},
+    {36.0f, 24.0f, 15.0f, 3.0f},
+    {48.0f, 0.0f, 3.0f, 27.0f}
+  };
+  //Build the letter "L"
+  SDL_FRect l_rects[2] = {
+    {60.0f, 0.0f, 3.0f, 27.0f},
+    {60.0f, 24.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "O2"
+  SDL_FRect o2_rects[4] = {
+    {78.0f, 0.0f, 15.0f, 3.0f},
+    {78.0f, 0.0f, 3.0f, 27.0f},
+    {90.0f, 0.0f, 3.0f, 27.0f},
+    {78.0f, 24.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "S"
+  SDL_FRect s_rects[5] = {
+    {96.0f, 0.0f, 15.0f, 3.0f},
+    {96.0f, 0.0f, 3.0f, 15.0f},
+    {96.0f, 12.0f, 15.0f, 3.0f},
+    {108.0f, 12.0f, 3.0f, 15.0f},
+    {96.0f, 24.0f, 15.0f, 3.0f}
+  };
+  //Build the letter "E"
+  SDL_FRect e_rects[4] = {
+    {114.0f, 0.0f, 15.0f, 3.0f},
+    {114.0f, 0.0f, 3.0f, 27.0f},
+    {114.0f, 12.0f, 12.0f, 3.0f},
+    {114.0f, 24.0f, 15.0f, 3.0f}
+  };
+
+  SDL_RenderFillRects(renderer, y_rects, 4);
+  SDL_RenderFillRects(renderer, o1_rects, 4);
+  SDL_RenderFillRects(renderer, u_rects, 3);
+  SDL_RenderFillRects(renderer, l_rects, 2);
+  SDL_RenderFillRects(renderer, o2_rects, 4);
+  SDL_RenderFillRects(renderer, s_rects, 5);
+  SDL_RenderFillRects(renderer, e_rects, 4);
+
+   SDL_SetRenderTarget(renderer, old_render_target);
+}

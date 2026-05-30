@@ -2,7 +2,7 @@
 
 void MainMenu::CreateMenu() {
   play_button.CreateButton(Utils::window_width / 2.0f, (Utils::window_height / 4.0f) * 3.0f);
-  title.CreateTitle(Utils::window_width / 2.0f, Utils::window_height / 4.0f);
+  title.CreateTitle(Utils::window_width / 2.0f, Utils::window_height / 4.0f, TITLE_WIDTH, TITLE_HEIGHT);
 }
 
 void MainMenu::ResetButtons() {
@@ -10,7 +10,8 @@ void MainMenu::ResetButtons() {
 }
 
 void MainMenu::UpdateMenu(AppState game_state) {
-  title.UpdateTitle(Utils::window_width / 2.0f, Utils::window_height / 4.0f, game_state.delta_time);
+  title.UpdateTitleLocation(Utils::window_width / 2.0f, Utils::window_height / 4.0f);
+  title.UpdateTitleColor(game_state.delta_time);
   play_button.UpdateButtonLocation(Utils::window_width / 2.0f, (Utils::window_height / 4.0f) * 3.0f);
 }
 

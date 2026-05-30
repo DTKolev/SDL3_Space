@@ -1,7 +1,7 @@
 #include "SpaceHeader.hpp"
 
-int Utils::window_width = 1080;
-int Utils::window_height = 720;
+int Utils::window_width = 1920;
+int Utils::window_height = 1080;
 float Utils::grid_scale = 2.0f;
 float Utils::origin_offset_x = 0.0f;
 float Utils::origin_offset_y = 0.0f;

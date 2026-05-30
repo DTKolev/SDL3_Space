@@ -60,12 +60,12 @@ void PlanetManager::UpdatePlanetOrbits(AppState game_state) {
   }
 }
 
-void PlanetManager::ManualPlanetMove(AppState game_state, Input input) {
+void PlanetManager::ManualPlanetMove(AppState* game_state, Input input) {
   for (int i = 1; i < PLANET_AMOUNT; i++) {
     //Detect planet click
-    if ((PlanetIsHovered(planets[i], input) && input.input_keys[MOUSE_BUTTON_LEFT].is_down) && !game_state.planet_being_moved) {
+    if ((PlanetIsHovered(planets[i], input) && input.input_keys[MOUSE_BUTTON_LEFT].is_down) && !game_state->planet_being_moved) {
       planets[i].being_moved = true;
-      game_state.planet_being_moved = true;
+      game_state->planet_being_moved = true;
     }
     //Move planet if clicked
     if (planets[i].being_moved) {
@@ -80,7 +80,7 @@ void PlanetManager::ManualPlanetMove(AppState game_state, Input input) {
     //Detect planet release
     if (planets[i].being_moved && ButtonReleased(MOUSE_BUTTON_LEFT)) {
       planets[i].being_moved = false;
-      game_state.planet_being_moved = false;
+      game_state->planet_being_moved = false;
       planets[i].orbit_radius = SDL_sqrtf(
         SDL_powf(planets[i].planet_center.grid_x, 2) + 
         SDL_powf(planets[i].planet_center.grid_y, 2)
@@ -168,10 +168,9 @@ void PlanetManager::ResetGame(AppState* game_state, Renderer game_renderer) {
   game_state->asteroid_is_active = false;
   asteroid_hit_planet = false;
 }
-/*
-PlanetManager::~PlanetManager() {
+
+void PlanetManager::DestroyPlanetTextures() {
   for (int i = 0; i < PLANET_AMOUNT; i++) {
     SDL_DestroyTexture(planets[i].planet_texture);
   }
 }
-*/
