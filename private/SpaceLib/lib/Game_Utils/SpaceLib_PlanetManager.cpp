@@ -39,6 +39,14 @@
   #define ASTEROID_TIMER_START 5.0f
 #endif
 
+#ifndef GRAVITATIONAL_CONSTANT
+  #define GRAVITATIONAL_CONSTANT 5.0f
+#endif
+
+#ifndef STAR_RADIUS
+  #define STAR_RADIUS 25.0f
+#endif
+
 void PlanetManager::SetStarProperties() {
   planets[0].planet_radius = STAR_RADIUS;
   planets[0].orbit_radius = 0.0;
@@ -134,7 +142,7 @@ void PlanetManager::SpawnAsteroid(AppState* game_state) {
     active_asteroid.asteroid_radius = Utils::MaxF(SDL_randf() * ASTEROID_MAX_RADIUS, ASTEROID_MIN_RADIUS);
     active_asteroid.indicator_radius = active_asteroid.asteroid_radius * 0.2f;
     active_asteroid.impact_timer = ASTEROID_TIMER_START;
-    active_asteroid.asteroid_hit = false;
+    asteroid_hit = false;
     game_state->asteroid_is_active = true;
   }
 }
@@ -142,7 +150,7 @@ void PlanetManager::SpawnAsteroid(AppState* game_state) {
 void PlanetManager::UpdateAsteroid(AppState* game_state) {
   active_asteroid.impact_timer -= game_state->delta_time;
   if (active_asteroid.impact_timer <= 0.0f) {
-    active_asteroid.asteroid_hit = true;
+    asteroid_hit = true;
     game_state->asteroid_is_active = false;
     return;
   }
@@ -183,7 +191,7 @@ void PlanetManager::CheckAsteroidCollision() {
     float diff_x = planets[i].planet_center.grid_x - active_asteroid.asteroid_location.grid_x;
     float diff_y = planets[i].planet_center.grid_y - active_asteroid.asteroid_location.grid_y;
     float distance_from_planet_center = SDL_sqrtf((diff_x * diff_x) + (diff_y * diff_y));
-    if ((distance_from_planet_center < active_asteroid.asteroid_radius + planets[i].planet_radius) && active_asteroid.asteroid_hit) {
+    if ((distance_from_planet_center < active_asteroid.asteroid_radius + planets[i].planet_radius) && asteroid_hit) {
       asteroid_hit_planet = true;
       break;
     }
@@ -197,7 +205,7 @@ void PlanetManager::ResetGame(AppState* game_state, Renderer game_renderer) {
     SetRandomProperties(&planets[i]);
     game_renderer.PreRenderPlanetTexture(&planets[i]);
   }
-  Utils::grid_scale = 2.0f;
+  Utils::grid_scale = Utils::max_scale;
   Utils::CalculateOriginOffset();
   game_state->planet_being_moved = false;
   game_state->asteroid_is_active = false;

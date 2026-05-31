@@ -8,21 +8,16 @@ class Renderer {
   public:
     SDL_Window* window;
     SDL_Renderer* renderer;
-    SDL_Texture* default_star_texture;
-    SDL_Texture* play_button_texture;
-    SDL_Texture* home_button_texture;
-    SDL_Texture* title_texture;
-    SDL_Texture* pause_texture;
-    SDL_Texture* death_texture;
 
     //Renderer();
     void CreateWindowAndRenderer();
     void PreRenderPlanetTexture(Planet* planet);
     void RenderPlanet(Planet planet);
-    void PreRenderDefaultStarTexture();
-    void PreRenderPlayButtonTexture();
-    void PreRenderHomeButtonTexture();
-    void PreRenderTitleTexture();
-    void PreRenderPauseTexture();
-    void PreRenderDeathTexture();
+    SDL_Texture* PreRenderDefaultStarTexture();
+    SDL_Texture* PreRenderPlayButtonTexture();
+    SDL_Texture* PreRenderHomeButtonTexture();
+    SDL_Texture* PreRenderTitleTexture();
+    SDL_Texture* PreRenderPauseTexture();
+    SDL_Texture* PreRenderDeathTexture();
+    SDL_Texture* PreRenderDigitTexture(int digit);
 };

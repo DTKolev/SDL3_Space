@@ -88,10 +88,11 @@ void Renderer::RenderPlanet(Planet planet) {
   SDL_RenderTexture(renderer, planet.planet_texture, NULL, &destination_rect_float);
 }
 
-void Renderer::PreRenderDefaultStarTexture() {
+SDL_Texture* Renderer::PreRenderDefaultStarTexture() {
+  SDL_Texture* new_texture;
   //Store the old render target (the game window in this case) and create the default star texture and set it as the new render target
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  PrepareTextureForPreRendering(&default_star_texture, 10, 10);
+  PrepareTextureForPreRendering(&new_texture, 10, 10);
  
   int center_brightness = 255;
   SDL_SetRenderDrawColor(renderer, center_brightness, center_brightness, center_brightness, 255);
@@ -113,12 +114,15 @@ void Renderer::PreRenderDefaultStarTexture() {
 
   //Restore the old render target
   SDL_SetRenderTarget(renderer, old_render_target);
+
+  return new_texture;
 }
 
-void Renderer::PreRenderPlayButtonTexture() {
+SDL_Texture* Renderer::PreRenderPlayButtonTexture() {
+  SDL_Texture* new_texture;
   //Store the old render target (the game window in this case) and create the play button texture and set it as the new render target
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  PrepareTextureForPreRendering(&play_button_texture, 100, 100);
+  PrepareTextureForPreRendering(&new_texture, 100, 100);
 
   SDL_Vertex vertecies[3] = {
     {{0.0f, 0.0f}, {255, 255, 255, 255}, {0.0f, 0.0f}},
@@ -130,12 +134,15 @@ void Renderer::PreRenderPlayButtonTexture() {
 
   //Restore the old render target
   SDL_SetRenderTarget(renderer, old_render_target);
+
+  return new_texture;
 }
 
-void Renderer::PreRenderHomeButtonTexture() {
+SDL_Texture* Renderer::PreRenderHomeButtonTexture() {
+  SDL_Texture* new_texture;
   //Store the old render target (the game window in this case)
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  PrepareTextureForPreRendering(&home_button_texture, 100, 100);
+  PrepareTextureForPreRendering(&new_texture, 100, 100);
   
   //Draw the home icon from a filled FRect for base and triangle roof
   SDL_FRect home_base = {10.0f, 40.0f, 80.0f, 60.0f};
@@ -150,12 +157,15 @@ void Renderer::PreRenderHomeButtonTexture() {
 
   //Restore the old render target
   SDL_SetRenderTarget(renderer, old_render_target);
+
+  return new_texture;
 }
 
-void Renderer::PreRenderTitleTexture() {
+SDL_Texture* Renderer::PreRenderTitleTexture() {
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  PrepareTextureForPreRendering(&title_texture, 87, 57);
-  SDL_SetTextureScaleMode(title_texture, SDL_SCALEMODE_NEAREST);
+  SDL_Texture* new_texture;
+  PrepareTextureForPreRendering(&new_texture, 87, 57);
+  SDL_SetTextureScaleMode(new_texture, SDL_SCALEMODE_NEAREST);
 
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
@@ -235,12 +245,15 @@ void Renderer::PreRenderTitleTexture() {
   SDL_RenderFillRects(renderer, e2_rects, 4);
 
   SDL_SetRenderTarget(renderer, old_render_target);
+
+  return new_texture;
 }
 
-void Renderer::PreRenderPauseTexture() {
+SDL_Texture* Renderer::PreRenderPauseTexture() {
+  SDL_Texture* new_texture;
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  PrepareTextureForPreRendering(&pause_texture, 87, 27);
-  SDL_SetTextureScaleMode(pause_texture, SDL_SCALEMODE_NEAREST);
+  PrepareTextureForPreRendering(&new_texture, 87, 27);
+  SDL_SetTextureScaleMode(new_texture, SDL_SCALEMODE_NEAREST);
 
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
@@ -287,12 +300,15 @@ void Renderer::PreRenderPauseTexture() {
   SDL_RenderFillRects(renderer, e_rects, 4);
 
   SDL_SetRenderTarget(renderer, old_render_target);
+
+  return new_texture;
 }
 
-void Renderer::PreRenderDeathTexture() {
+SDL_Texture* Renderer::PreRenderDeathTexture() {
+  SDL_Texture* new_texture;
   SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
-  PrepareTextureForPreRendering(&death_texture, 129, 27);
-  SDL_SetTextureScaleMode(death_texture, SDL_SCALEMODE_NEAREST);
+  PrepareTextureForPreRendering(&new_texture, 129, 27);
+  SDL_SetTextureScaleMode(new_texture, SDL_SCALEMODE_NEAREST);
 
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
@@ -352,5 +368,96 @@ void Renderer::PreRenderDeathTexture() {
   SDL_RenderFillRects(renderer, s_rects, 5);
   SDL_RenderFillRects(renderer, e_rects, 4);
 
-   SDL_SetRenderTarget(renderer, old_render_target);
+  SDL_SetRenderTarget(renderer, old_render_target);
+
+  return new_texture;
+}
+
+SDL_Texture* Renderer::PreRenderDigitTexture(int digit) {
+  SDL_Texture* new_texture;
+  SDL_Texture* old_render_target = SDL_GetRenderTarget(renderer);
+  PrepareTextureForPreRendering(&new_texture, 10, 18);
+  SDL_SetTextureScaleMode(new_texture, SDL_SCALEMODE_NEAREST);
+
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+  SDL_FRect element_rects[7] = {
+    {0.0f, 0.0f, 10.0f, 2.0f},
+    {0.0f, 0.0f, 2.0f, 10.0f},
+    {8.0f, 0.0f, 2.0f, 10.0f},
+    {0.0f, 8.0f, 10.0f, 2.0f},
+    {0.0f, 8.0f, 2.0f, 10.0f},
+    {8.0f, 8.0f, 2.0f, 10.0f},
+    {0.0f, 16.0f, 10.0f, 2.0f}
+  };
+
+  switch (digit) {
+    case 0:
+      SDL_RenderFillRect(renderer, &element_rects[0]);
+      SDL_RenderFillRect(renderer, &element_rects[1]);
+      SDL_RenderFillRect(renderer, &element_rects[2]);
+      SDL_RenderFillRect(renderer, &element_rects[4]);
+      SDL_RenderFillRect(renderer, &element_rects[5]);
+      SDL_RenderFillRect(renderer, &element_rects[6]);
+      break;
+    case 1:
+      SDL_RenderFillRect(renderer, &element_rects[2]);
+      SDL_RenderFillRect(renderer, &element_rects[5]);
+      break;
+    case 2:
+      SDL_RenderFillRect(renderer, &element_rects[0]);
+      SDL_RenderFillRect(renderer, &element_rects[2]);
+      SDL_RenderFillRect(renderer, &element_rects[3]);
+      SDL_RenderFillRect(renderer, &element_rects[4]);
+      SDL_RenderFillRect(renderer, &element_rects[6]);
+      break;
+    case 3:
+      SDL_RenderFillRect(renderer, &element_rects[0]);
+      SDL_RenderFillRect(renderer, &element_rects[2]);
+      SDL_RenderFillRect(renderer, &element_rects[3]);
+      SDL_RenderFillRect(renderer, &element_rects[5]);
+      SDL_RenderFillRect(renderer, &element_rects[6]);
+      break;
+    case 4:
+      SDL_RenderFillRect(renderer, &element_rects[1]);
+      SDL_RenderFillRect(renderer, &element_rects[2]);
+      SDL_RenderFillRect(renderer, &element_rects[3]);
+      SDL_RenderFillRect(renderer, &element_rects[5]);
+      break;
+    case 5:
+      SDL_RenderFillRect(renderer, &element_rects[0]);
+      SDL_RenderFillRect(renderer, &element_rects[1]);
+      SDL_RenderFillRect(renderer, &element_rects[3]);
+      SDL_RenderFillRect(renderer, &element_rects[5]);
+      SDL_RenderFillRect(renderer, &element_rects[6]);
+      break;
+    case 6:
+      SDL_RenderFillRect(renderer, &element_rects[0]);
+      SDL_RenderFillRect(renderer, &element_rects[1]);
+      SDL_RenderFillRect(renderer, &element_rects[3]);
+      SDL_RenderFillRect(renderer, &element_rects[4]);
+      SDL_RenderFillRect(renderer, &element_rects[5]);
+      SDL_RenderFillRect(renderer, &element_rects[6]);
+      break;
+    case 7:
+      SDL_RenderFillRect(renderer, &element_rects[0]);
+      SDL_RenderFillRect(renderer, &element_rects[2]);
+      SDL_RenderFillRect(renderer, &element_rects[5]);
+      break;
+    case 8:
+      SDL_RenderFillRects(renderer, element_rects, 7);
+      break;
+    case 9:
+      SDL_RenderFillRect(renderer, &element_rects[0]);
+      SDL_RenderFillRect(renderer, &element_rects[1]);
+      SDL_RenderFillRect(renderer, &element_rects[2]);
+      SDL_RenderFillRect(renderer, &element_rects[3]);
+      SDL_RenderFillRect(renderer, &element_rects[5]);
+      SDL_RenderFillRect(renderer, &element_rects[6]);
+    default: break;
+  }
+
+  SDL_SetRenderTarget(renderer, old_render_target);
+
+  return new_texture;
 }

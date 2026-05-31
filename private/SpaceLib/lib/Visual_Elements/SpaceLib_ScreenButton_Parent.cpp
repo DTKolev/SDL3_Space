@@ -1,3 +1,5 @@
+#include <SDL3/SDL.h>
+
 #include "SpaceGame_Macros.hpp"
 #include "SpaceGame_Buttons.hpp"
 
@@ -27,4 +29,8 @@ void ScreenButton::ResetButtonState() {
 
 bool ScreenButton::Pressed() {
   return this->is_pressed;
+}
+
+void ScreenButton::DestroyTexture() {
+  SDL_DestroyTexture(button_texture);
 }

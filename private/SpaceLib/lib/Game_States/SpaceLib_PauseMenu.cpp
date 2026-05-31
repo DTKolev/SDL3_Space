@@ -1,6 +1,14 @@
 #include "SpaceGame_GameScreens.hpp"
 #include "SpaceGame_Utils.hpp"
 
+#ifndef PAUSE_TITLE_WIDTH
+  #define PAUSE_TITLE_WIDTH 580.0f
+#endif
+
+#ifndef PAUSE_TITLE_HEIGHT
+  #define PAUSE_TITLE_HEIGHT PAUSE_TITLE_WIDTH * 27.0f / 87.0f
+#endif
+
 void PauseMenu::ResetButtons() {
   play_button.ResetButtonState();
   home_button.ResetButtonState();

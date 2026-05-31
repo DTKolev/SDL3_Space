@@ -6,6 +6,7 @@
 #include "SpaceGame_Renderer.hpp"
 #include "SpaceGame_VisualElements.hpp"
 #include "SpaceGame_PlanetManager.hpp"
+#include "SpaceGame_ScoreCounter.hpp"
 
 class MainMenu {
   public:
@@ -21,6 +22,7 @@ class MainMenu {
 class GameScreen {
   public:
     PlanetManager planet_manager;
+    ScoreCounter score_counter;
     void CreateGameScreen(AppState* game_state, Renderer game_renderer);
     void UpdateGameScreen(AppState* game_state, Input input);
     void RenderGameScreen(Renderer game_renderer);

@@ -24,6 +24,7 @@ class Title {
     void SetTitleTexture(SDL_Texture* texture);
     void UpdateTitleLocation(float pos_x, float pos_y);
     void RenderTitle(SDL_Renderer* renderer);
+    void DestroyTexture();
 };
 
 class GameTitle : public Title {

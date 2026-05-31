@@ -4,6 +4,7 @@ void SpaceGame::HandleMenu() {
   if (ButtonReleased(BUTTON_RETURN) || main_menu.play_button.Pressed()) {
     game_state.current_state = STATE_PLAYING;
     game_screen.CreateGameScreen(&game_state, game_renderer);
+    game_screen.score_counter.ResetScore();
   }
   if (ButtonReleased(BUTTON_ESCAPE)) game_state.current_state = STATE_EXIT;
 }
@@ -31,6 +32,7 @@ void SpaceGame::HandleDeathScreen() {
   if (ButtonReleased(BUTTON_RETURN) || death_screen.play_button.Pressed()) { 
     game_screen.CreateGameScreen(&game_state, game_renderer);
     game_state.current_state = STATE_PLAYING;
+    game_screen.score_counter.ResetScore();
   }
   if (ButtonReleased(BUTTON_ESCAPE) || death_screen.home_button.Pressed()) game_state.current_state = STATE_MENU;
 }

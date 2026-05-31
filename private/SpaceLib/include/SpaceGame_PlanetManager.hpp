@@ -13,6 +13,7 @@ class PlanetManager {
     void SetRandomProperties(Planet* planet);
   public:
     //PlanetManager();
+    bool asteroid_hit;
     bool asteroid_hit_planet;
     void SpawnAsteroid(AppState* game_state);
     void UpdateAsteroid(AppState* game_state);

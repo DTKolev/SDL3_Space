@@ -12,30 +12,26 @@ void SpaceGame::GameInit() {
 
   game_renderer.CreateWindowAndRenderer();
 
-  game_renderer.PreRenderDefaultStarTexture();
-  game_renderer.PreRenderPlayButtonTexture();
-  game_renderer.PreRenderHomeButtonTexture();
-  game_renderer.PreRenderTitleTexture();
-  game_renderer.PreRenderPauseTexture();
-  game_renderer.PreRenderDeathTexture();
-
   main_menu.CreateMenu();
-  main_menu.play_button.SetButtonTexture(game_renderer.play_button_texture);
-  main_menu.title.SetTitleTexture(game_renderer.title_texture);
+  main_menu.play_button.SetButtonTexture(game_renderer.PreRenderPlayButtonTexture());
+  main_menu.title.SetTitleTexture(game_renderer.PreRenderTitleTexture());
+
+  game_screen.score_counter.SetDigitTextures(game_renderer);
   
   pause_menu.CreateMenu();
-  pause_menu.pause_title.SetTitleTexture(game_renderer.pause_texture);
-  pause_menu.play_button.SetButtonTexture(game_renderer.play_button_texture);
-  pause_menu.home_button.SetButtonTexture(game_renderer.home_button_texture);
+  pause_menu.pause_title.SetTitleTexture(game_renderer.PreRenderPauseTexture());
+  pause_menu.play_button.SetButtonTexture(game_renderer.PreRenderPlayButtonTexture());
+  pause_menu.home_button.SetButtonTexture(game_renderer.PreRenderHomeButtonTexture());
 
   death_screen.CreateMenu();
-  death_screen.death_title.SetTitleTexture(game_renderer.death_texture);
-  death_screen.play_button.SetButtonTexture(game_renderer.play_button_texture);
-  death_screen.home_button.SetButtonTexture(game_renderer.home_button_texture);
+  death_screen.death_title.SetTitleTexture(game_renderer.PreRenderDeathTexture());
+  death_screen.play_button.SetButtonTexture(game_renderer.PreRenderPlayButtonTexture());
+  death_screen.home_button.SetButtonTexture(game_renderer.PreRenderHomeButtonTexture());
 
   Utils::CalculateOriginOffset();
   Utils::SetDisplayData();
   background.CreateBackground();
+  background.SetStarTexture(game_renderer.PreRenderDefaultStarTexture());
 
   game_state.asteroid_is_active = false;
   game_state.game_running = true;
@@ -87,10 +83,12 @@ void SpaceGame::GameRun() {
 
 void SpaceGame::GameTerminate() {
   game_screen.planet_manager.DestroyPlanetTextures();
-  SDL_DestroyTexture(game_renderer.default_star_texture);
-  SDL_DestroyTexture(game_renderer.play_button_texture);
-  SDL_DestroyTexture(game_renderer.home_button_texture);
-  SDL_DestroyTexture(game_renderer.title_texture);
+  main_menu.title.DestroyTexture();
+  main_menu.play_button.DestroyTexture();
+  pause_menu.play_button.DestroyTexture();
+  pause_menu.home_button.DestroyTexture();
+  death_screen.play_button.DestroyTexture();
+  death_screen.home_button.DestroyTexture();
   SDL_DestroyRenderer(game_renderer.renderer);
   SDL_DestroyWindow(game_renderer.window);
   SDL_Quit();

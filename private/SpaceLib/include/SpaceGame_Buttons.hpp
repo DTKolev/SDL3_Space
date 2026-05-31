@@ -15,6 +15,7 @@ class ScreenButton {
     void UpdateButtonLocation(float x, float y);
     void ResetButtonState();
     bool Pressed();
+    void DestroyTexture();
 };
 
 class PlayButton : public ScreenButton {

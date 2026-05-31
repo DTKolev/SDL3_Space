@@ -12,6 +12,7 @@ add_library(SpaceLib STATIC
   #Game utils source files
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_Utils/SpaceLib_PlanetManager.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_Utils/SpaceLib_Utils.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/Game_Utils/SpaceLib_ScoreCounter.cpp
   #Visual elements source files
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_Background.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/Visual_Elements/SpaceLib_GameTitle.cpp

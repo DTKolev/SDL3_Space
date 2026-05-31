@@ -61,7 +61,6 @@ typedef struct {
   float asteroid_radius; //Asteroid radius in grid units
   float indicator_radius;
   float impact_timer;
-  bool asteroid_hit;
 } Asteroid;
 
 typedef struct {

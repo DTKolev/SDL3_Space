@@ -24,3 +24,7 @@ void Title::UpdateTitleLocation(float pos_x, float pos_y) {
 void Title::RenderTitle(SDL_Renderer* renderer) {
   SDL_RenderTexture(renderer, title_texture, NULL, &title_rect);
 }
+
+void Title::DestroyTexture() {
+  SDL_DestroyTexture(title_texture);
+}
