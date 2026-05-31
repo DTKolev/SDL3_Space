@@ -15,4 +15,5 @@ class ScoreCounter {
     void SetDigitTextures(Renderer game_renderer);
     void RenderScore(SDL_Renderer* renderer);
     void ResetScore();
+    void DestroyDigitTextures();
 };

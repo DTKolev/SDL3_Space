@@ -83,6 +83,7 @@ void SpaceGame::GameRun() {
 
 void SpaceGame::GameTerminate() {
   game_screen.planet_manager.DestroyPlanetTextures();
+  game_screen.score_counter.DestroyDigitTextures();
   main_menu.title.DestroyTexture();
   main_menu.play_button.DestroyTexture();
   pause_menu.play_button.DestroyTexture();

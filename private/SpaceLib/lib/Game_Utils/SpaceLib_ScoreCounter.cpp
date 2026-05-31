@@ -11,7 +11,7 @@
 #endif
 
 #ifndef DIGIT_SPACING
-  #define DIGIT_SPACING DIGIT_WIDTH / 10.0f
+  #define DIGIT_SPACING DIGIT_WIDTH / 5.0f
 #endif
 
 void ScoreCounter::CreateCounter(float pos_x, float pos_y) {
@@ -50,4 +50,10 @@ void ScoreCounter::RenderScore(SDL_Renderer* renderer) {
 
 void ScoreCounter::ResetScore() {
   score = 0;
+}
+
+void ScoreCounter::DestroyDigitTextures() {
+  for (int i = 0; i <= 9; i++) {
+    SDL_DestroyTexture(digit_textures[i]);
+  }
 }
